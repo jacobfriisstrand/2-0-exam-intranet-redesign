@@ -5,6 +5,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      padding: "1.25rem",
+      center: true,
+    },
+    zIndex: {
+      navigation: "9999",
+      hide: "-1",
+    },
     fontSize: {
       baseSmall: "0.75rem",
       base: "0.875rem",
@@ -25,12 +33,8 @@ module.exports = {
       success: "#61D161",
       warning: "#EDC25E",
       danger: "#E23636",
-      overlay: "rgba(0, 0, 0, 0.7)",
       transparent: "transparent",
       currentColor: "currentColor",
-    },
-    transitionProperty: {
-      base: "all 250ms cubic-bezier(0,0,.2,1)",
     },
     fontFamily: {
       body: "system-ui, sans-serif",
@@ -57,7 +61,10 @@ module.exports = {
       base: "1px",
     },
     backdropBlur: {
-      base: "15px",
+      base: "8px",
+    },
+    backgroundOpacity: {
+      base: "0.50",
     },
     screens: {
       xs: "414px",
@@ -67,6 +74,12 @@ module.exports = {
       xl: "1440px",
       xxl: "1441px",
     },
+    extend: {
+      height: {
+        mobileNavigation: "var(--mobileNavHeight)",
+      },
+    },
   },
+
   plugins: [],
 };

@@ -1,5 +1,5 @@
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import PrimaryNavigation from "@/components/Navigation/PrimaryNavigation";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -17,9 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
-      <body className="bg-background text-foreground">
-        <main className="grid">{children}</main>
+    <html lang="en">
+      <body>
+        <PrimaryNavigation />
+        <main>{children}</main>
       </body>
     </html>
   );

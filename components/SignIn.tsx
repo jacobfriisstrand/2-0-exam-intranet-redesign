@@ -2,7 +2,11 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
-export default function SignIn({ searchParams }: { searchParams: { message: string } }) {
+export default function SignIn({
+  searchParams,
+}: {
+  searchParams: { message: string };
+}) {
   const signInUser = async (formData: FormData) => {
     "use server";
 
@@ -32,7 +36,12 @@ export default function SignIn({ searchParams }: { searchParams: { message: stri
         <label className="text-md" htmlFor="password">
           Password
         </label>
-        <input type="password" name="password" placeholder="••••••••" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="••••••••"
+          required
+        />
         <Button variant="outline" formAction={signInUser}>
           Sign In
         </Button>

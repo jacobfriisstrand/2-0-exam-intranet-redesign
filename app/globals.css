@@ -4,9 +4,16 @@
 
 @layer base {
   body {
-    @apply bg-black text-white font-body text-base;
+    @apply bg-black text-white font-body text-base mt-[var(--mobileNavHeight)] pt-5;
   }
   *:focus-visible {
-    @apply outline-reset ring-white ring-2;
+    @apply outline-double outline-white outline-offset-2;
   }
+  main {
+    @apply px-5;
+  }
+}
+
+:root {
+  --mobileNavHeight: 4.25rem;
 }

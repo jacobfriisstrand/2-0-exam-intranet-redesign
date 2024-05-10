@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Logo from "@/components/Logo";
+import Logo from "@/components/Logo/AKQALogo";
 import NavigationItem from "./NavigationItem";
 import Copyright from "../Copyright";
 import Link from "next/link";
+import AKQALogo from "@/components/Logo/AKQALogo";
 
 interface HamburgerProps {
   isOpened: boolean;
@@ -16,18 +17,18 @@ function Hamburger({ isOpened, openMenu: onClick }: HamburgerProps) {
     <button aria-expanded={isOpened} onClick={onClick}>
       <div className="grid justify-items-center gap-1">
         <span
-          className={`h-[1px] w-4 bg-white transition ease-in duration-200 ${
-            isOpened ? "rotate-45 delay-200 translate-y-[5px]" : ""
+          className={`h-[1px] w-4 bg-white transition duration-200 ease-in ${
+            isOpened ? "translate-y-[5px] rotate-45 delay-200" : ""
           }`}
         />
         <span
-          className={`h-[1px] w-4 bg-white transition ease-in duration-200 ${
+          className={`h-[1px] w-4 bg-white transition duration-200 ease-in ${
             isOpened ? "scale-0 transition" : "delay-200"
           }`}
         />
         <span
-          className={`h-[1px] w-4 bg-white transition ease-in duration-200 ${
-            isOpened ? "-rotate-45 delay-200 -translate-y-[5px]" : ""
+          className={`h-[1px] w-4 bg-white transition duration-200 ease-in ${
+            isOpened ? "-translate-y-[5px] -rotate-45 delay-200" : ""
           }`}
         />
       </div>
@@ -47,6 +48,7 @@ export default function PrimaryNavigation({
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      document.body.style.background = "";
     }
 
     return () => {
@@ -55,10 +57,10 @@ export default function PrimaryNavigation({
   }, [isOpened]);
 
   return (
-    <nav className="top-0 min-h-mobileNavigation fixed w-full bg-opacity-base backdrop-blur-base z-header border-b-base bg-black border-b-darkGray lg:border-r-base lg:border-r-darkGray lg:py-7 lg:px-6 lg:h-screen">
-      <div className={"flex p-5 place-items-center justify-between"}>
+    <nav className="z-header min-h-mobileNavigation fixed top-0 w-full border-b-base border-b-darkGray bg-black bg-opacity-base backdrop-blur-base lg:h-screen lg:border-r-base lg:border-r-darkGray lg:px-6 lg:py-7">
+      <div className={"flex place-items-center justify-between p-5"}>
         <Link href="/protected" aria-label="Home" className="w-12">
-          <Logo />
+          <AKQALogo />
         </Link>
         <Hamburger
           isOpened={isOpened}
@@ -66,43 +68,13 @@ export default function PrimaryNavigation({
         />
       </div>
       <div
-        className={`grid transition-[grid-template-rows] duration-500 delay-200 ease-in-out ${isOpened ? "grid-rows-[1fr] " : "grid-rows-[0fr]"}`}
+        className={`grid transition-[grid-template-rows] delay-200 duration-500 ease-in-out ${isOpened ? "h-full grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
       >
         <div
-          className={`px-5 flex flex-col gap-10  ${isOpened ? "overflow-y-scroll max-h-[calc(100vh-var(--mobileNavHeight))]" : "overflow-hidden"}`}
+          className={`flex flex-col gap-10 px-5  ${isOpened ? "max-h-[calc(100vh-var(--mobileNavHeight)-1)] overflow-y-scroll" : "overflow-hidden"}`}
         >
           <ul>
             <Link href={"/protected/ComponentsPage"}>Components Page</Link>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
-            <NavigationItem>This is a navigation item</NavigationItem>
             <NavigationItem>This is a navigation item</NavigationItem>
             <NavigationItem>This is a navigation item</NavigationItem>
             <NavigationItem>This is a navigation item</NavigationItem>

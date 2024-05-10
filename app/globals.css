@@ -4,10 +4,10 @@
 
 @layer base {
   body {
-    @apply bg-black text-white font-body text-base mt-[var(--mobileNavHeight)] pt-5;
+    @apply bg-black font-body text-base text-white;
   }
   *:focus-visible {
-    @apply outline-double outline-white outline-offset-2;
+    @apply outline-double outline-offset-2 outline-white;
   }
   main {
     @apply px-5;

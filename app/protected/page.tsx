@@ -1,4 +1,4 @@
-import AuthButton from "@/components/AuthButton";
+import AuthButton from "@/components/UserSignout";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -15,7 +15,7 @@ export default async function ProtectedPage() {
 
   return (
     <>
-      <AuthButton />
+      <h1>This is the protected homepage</h1>
     </>
   );
 }

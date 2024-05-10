@@ -1,9 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
-import Link from "next/link";
+
 import { redirect } from "next/navigation";
 import { Button } from "./ui/button";
 
-export default async function AuthButton() {
+export default async function UserSignout() {
   const supabase = createClient();
 
   const {
@@ -18,16 +18,12 @@ export default async function AuthButton() {
     return redirect("/");
   };
 
-  return user ? (
+  return (
     <div className="flex items-center gap-4">
-      Hey, {user.email}! You are logged in on protected routes.
+      Hey, {user?.email}! You are logged in on protected routes.
       <form action={signOut}>
         <Button variant={"outline"}>Logout</Button>
       </form>
     </div>
-  ) : (
-    <Link href="/" className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-      Login
-    </Link>
   );
 }

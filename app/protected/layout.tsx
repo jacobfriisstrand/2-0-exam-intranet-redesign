@@ -1,3 +1,5 @@
+import UserSignout from "@/components/UserSignout";
+import PrimaryNavigation from "@/components/Navigation/PrimaryNavigation";
 import "@/app/globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -18,6 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <PrimaryNavigation>
+          <UserSignout />
+        </PrimaryNavigation>
         <main>{children}</main>
       </body>
     </html>

@@ -10,7 +10,7 @@ export interface InputProps
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, icon, ...props }, ref) => {
     return (
-      <div className="flex items-center gap-2">
+      <div className="w-full flex gap-2 place-items-center">
         {icon ? (
           <div className="pointer-events-none text-inherit">{icon}</div>
         ) : null}

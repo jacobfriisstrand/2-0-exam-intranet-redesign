@@ -13,7 +13,7 @@ const buttonVariants = cva(
         filled:
           "bg-white border-white border-base  text-black  hover:bg-black hover:text-white",
         ctaFilled:
-          "bg-accent border-transparent border-base text-white hover:bg-transparent hover:border-accent hover:text-accent",
+          "bg-accent border-base text-white hover:bg-transparent hover:border-accent hover:text-accent",
         ctaOutlined:
           "bg-transparent  border-accent border-base  text-accent  hover:bg-accent hover:text-white hover:border-accent",
       },

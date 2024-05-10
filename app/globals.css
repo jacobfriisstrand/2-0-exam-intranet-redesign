@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-black font-body text-base text-white;
+    @apply bg-black font-body text-base text-white transition-opacity delay-500 duration-300;
   }
   *:focus-visible {
     @apply outline-double outline-offset-2 outline-white;
@@ -16,4 +16,13 @@
 
 :root {
   --mobileNavHeight: 4.25rem;
+}
+
+/* Overlay styles for smooth opacity transition */
+body::before {
+  @apply fixed inset-0 bg-black opacity-0 transition-all delay-200 duration-500 ease-in-out content-[""];
+}
+
+.body-overlay-active::before {
+  @apply opacity-90;
 }

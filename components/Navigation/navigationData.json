@@ -1,41 +1,8 @@
 [
   {
-    "title": "General",
-    "icon": "bi-gear-fill",
-    "childrens": [
-      {
-        "title": "Home",
-        "icon": "bi-house-fill",
-        "path": "/"
-      },
-      {
-        "title": "About",
-        "icon": "bi-info-circle-fill",
-        "path": "/about"
-      },
-      {
-        "title": "Contact",
-        "icon": "bi-phone-fill",
-        "childrens": [
-          {
-            "title": "Facebook",
-            "icon": "bi-facebook"
-          },
-          {
-            "title": "Twitter",
-            "icon": "bi-twitter"
-          },
-          {
-            "title": "Instagram",
-            "icon": "bi-instagram"
-          }
-        ]
-      },
-      {
-        "title": "FAQ",
-        "icon": "bi-question-circle-fill"
-      }
-    ]
+    "title": "News",
+    "icon": "mdi-newspaper",
+    "childrens": []
   },
   {
     "title": "Account",

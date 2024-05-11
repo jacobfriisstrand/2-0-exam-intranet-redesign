@@ -9,8 +9,6 @@ export default function AnchorLogo(props: AnchorLogoProps) {
     <div className={props.className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="fill"
-        height="fill"
         viewBox="0 0 201.98 91.44"
         className="fill-white"
       >

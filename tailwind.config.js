@@ -12,6 +12,7 @@ module.exports = {
     zIndex: {
       navigation: "9999",
       hide: "-1",
+      auto: "auto",
     },
     fontSize: {
       baseSmall: "0.75rem",

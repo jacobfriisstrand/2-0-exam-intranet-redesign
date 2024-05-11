@@ -3,7 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Button } from "./ui/button";
 
-export default async function UserSignout() {
+export default async function SearchBar() {
   const supabase = createClient();
 
   const {

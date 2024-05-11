@@ -1,6 +1,6 @@
 import PrimaryNavigation from "@/components/Navigation/PrimaryNavigation";
 import "@/app/globals.css";
-import UserSignout from "@/components/UserSignout";
+import SearchBar from "@/components/SearchBar";
 
 export default function RootLayout({
   children,
@@ -11,7 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="mt-[var(--mobileNavHeight)] pt-5">
         <PrimaryNavigation>
-          <UserSignout />
+          <SearchBar />
         </PrimaryNavigation>
         <main>{children}</main>
       </body>

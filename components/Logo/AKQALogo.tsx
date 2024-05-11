@@ -7,13 +7,7 @@ interface AKQALogoProps {
 export default function AKQALogo(props: AKQALogoProps) {
   return (
     <div className={props.className}>
-      <svg
-        width="fill"
-        height="fill"
-        viewBox="0 0 54 27"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg viewBox="0 0 54 27" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="Logo">
           <path
             id="Vector"

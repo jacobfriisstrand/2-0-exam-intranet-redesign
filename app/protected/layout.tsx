@@ -8,13 +8,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="mt-[var(--mobileNavHeight)] pt-5">
-        <PrimaryNavigation>
-          <SearchBar />
-        </PrimaryNavigation>
-        <main>{children}</main>
-      </body>
-    </html>
+    <div className="mt-[var(--mobileNavHeight)] pt-5">
+      <PrimaryNavigation>
+        <SearchBar />
+      </PrimaryNavigation>
+      <main>{children}</main>
+    </div>
   );
 }

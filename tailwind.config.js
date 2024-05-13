@@ -45,6 +45,7 @@ module.exports = {
       base: "0px 14px 25px 0px rgba(0, 0, 0, 0.25)",
     },
     borderRadius: {
+      none: "0px",
       base: "0.25rem",
     },
     borderColor: {

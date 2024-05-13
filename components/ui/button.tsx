@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-accent border-base text-white hover:bg-transparent hover:border-accent hover:text-accent",
         ctaOutlined:
           "bg-transparent border-accent border-base text-accent hover:bg-accent hover:text-white hover:border-accent",
-        unstyled: "px-0 py-0 gap-0",
+        unstyled: "px-0 py-0 gap-0 rounded-none",
       },
     },
   },

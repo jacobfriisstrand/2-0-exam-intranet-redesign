@@ -5,17 +5,13 @@ import Copyright from "@/components/Copyright";
 import Link from "next/link";
 import AKQALogo from "@/components/Logo/AKQALogo";
 import { getNavigation } from "@/sanity/sanity-utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { Button } from "../ui/button";
 import AnchorLogo from "../Logo/AnchorLogo";
 import React from "react";
 
 // Interface for NavigationItem props
-interface NavigationItemProps {
-  navItem: NavItem;
-}
-
-// Interface for the structure of navigation items
 interface NavItem {
   _key: string;
   title: string;
@@ -30,91 +26,122 @@ interface NavItem {
   children?: NavItem[];
 }
 
+interface NavigationItemProps {
+  navItem: NavItem;
+}
+
 const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
-  const [navItemIsOpen, setNavItemIsOpen] = useState(false);
-  const [subNavItemIsOpen, setSubNavItemIsOpen] = useState(false);
+  const [navItemIsOpen, setNavItemIsOpen] = useState<boolean>(false);
+  const [subNavStates, setSubNavStates] = useState<{ [key: string]: boolean }>(
+    {},
+  );
+
+  const toggleSubNavItem = (key: string) => {
+    setSubNavStates((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
   return (
     <li className="max-w-fit text-baseLarge">
       {navItem.children ? (
         <>
           <Button
-            className="grid grid-cols-[auto_auto_auto] place-items-center gap-2"
+            className={`grid grid-cols-[auto_auto_auto] place-items-center gap-2 ${navItemIsOpen ? "text-accent" : ""}`}
             variant={"unstyled"}
-            onClick={() => {
-              setNavItemIsOpen(!navItemIsOpen);
-              console.log(navItemIsOpen);
-            }}
+            onClick={() => setNavItemIsOpen(!navItemIsOpen)}
           >
             <div
               className="flex size-[1em] items-center justify-center"
               dangerouslySetInnerHTML={{ __html: navItem.svgIcon }}
             />
             <span>{navItem.title}</span>
-            {navItem.children && <MdOutlineExpandMore />}
+            <MdOutlineExpandMore
+              className={`transition ${navItemIsOpen ? "rotate-180 text-accent" : "text-white"}`}
+            />
           </Button>
+          <AnimatePresence>
+            {navItemIsOpen && (
+              <motion.ul
+                className="pl-8"
+                initial={{
+                  height: 0,
 
-          <ul className="pl-10">
-            {navItem.children?.map((child) =>
-              child.children ? (
-                <li
-                  key={child._key}
-                  className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${
-                    navItemIsOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                  }`}
-                >
-                  <Button
-                    className="grid grid-cols-[auto_auto_auto] place-items-center gap-2 overflow-hidden"
-                    variant={"unstyled"}
-                    onClick={() => {
-                      setSubNavItemIsOpen(!subNavItemIsOpen);
-                      console.log(navItemIsOpen);
-                    }}
-                  >
-                    <span>{child.title}</span>
-                    {navItem.children && <MdOutlineExpandMore />}
-                  </Button>
-
-                  <ul
-                    className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${
-                      subNavItemIsOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                    }`}
-                  >
-                    {child.children?.map((subChild) => (
-                      <li
-                        className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${
-                          subNavItemIsOpen
-                            ? "grid-rows-[1fr]"
-                            : "grid-rows-[0fr]"
-                        }`}
-                        key={subChild._key}
+                  marginTop: 0,
+                  opacity: 0,
+                }}
+                animate={{
+                  height: "auto",
+                  opacity: 1,
+                  marginTop: 8,
+                }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                  marginTop: 0,
+                }}
+              >
+                {navItem.children.map((child) =>
+                  child.children ? (
+                    <li key={child._key}>
+                      <Button
+                        className={`grid grid-cols-[auto_auto_auto] place-items-center gap-2 overflow-hidden ${subNavStates[child._key] ? "text-accent" : ""}`}
+                        variant={"unstyled"}
+                        onClick={() => toggleSubNavItem(child._key)}
                       >
-                        <Link
-                          className="overflow-hidden"
-                          href={`/${subChild.target?.slug.current}`}
-                        >
-                          {subChild.target?.title || subChild.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ) : (
-                <li
-                  className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${
-                    navItemIsOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                  }`}
-                  key={child._key}
-                >
-                  <Link
-                    className="overflow-hidden"
-                    href={`/${child.target?.slug.current}`}
-                  >
-                    {child.target?.title || child.title}
-                  </Link>
-                </li>
-              ),
+                        <span>{child.title}</span>
+                        <MdOutlineExpandMore
+                          className={`transition ${subNavStates[child._key] ? "rotate-180 text-accent" : "text-white"}`}
+                        />
+                      </Button>
+                      <AnimatePresence>
+                        {subNavStates[child._key] && (
+                          <motion.ul
+                            className="pl-3"
+                            initial={{
+                              height: 0,
+                              marginTop: 0, // Using marginTop
+                              marginBottom: 0, // Using marginBottom
+                              opacity: 0,
+                            }}
+                            animate={{
+                              height: "auto",
+                              opacity: 1,
+                              marginTop: 8, // Using marginTop
+                              marginBottom: 8, // Using marginBottom
+                            }}
+                            exit={{
+                              height: 0,
+                              opacity: 0,
+                              marginTop: 0, // Using marginTop
+                              marginBottom: 0, // Using marginBottom
+                            }}
+                          >
+                            {child.children.map((subChild) => (
+                              <li key={subChild._key}>
+                                <Link
+                                  href={`/${subChild.target?.slug.current}`}
+                                >
+                                  {subChild.target?.title || subChild.title}
+                                </Link>
+                              </li>
+                            ))}
+                          </motion.ul>
+                        )}
+                      </AnimatePresence>
+                    </li>
+                  ) : (
+                    <li key={child._key}>
+                      <Link href={`/${child.target?.slug.current}`}>
+                        {child.target?.title || child.title}
+                      </Link>
+                    </li>
+                  ),
+                )}
+              </motion.ul>
             )}
-          </ul>
+          </AnimatePresence>
         </>
       ) : (
         <Link
@@ -150,8 +177,7 @@ const NavigationList = React.memo(() => {
   console.log("navigationData", navigationData);
 
   return (
-    <ul id="primary-navigation" className="space-y-4">
-      <Link href="/protected/componentspage">Components Page</Link>
+    <ul id="primary-navigation" className="flex flex-col gap-4">
       {navigationData?.map((navItem: NavItem) => (
         <NavigationItem key={navItem._key} navItem={navItem} />
       ))}
@@ -271,6 +297,7 @@ export default function PrimaryNavigation({
           {/* Children is SearchBar component. Since it is a server component, it has to be injected as a children prop to the Navigation, which is a client component */}
           {children}
           <Copyright />
+          <Link href="/protected/componentspage">Components Page</Link>
         </div>
       </div>
     </nav>

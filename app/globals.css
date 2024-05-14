@@ -10,12 +10,13 @@
     @apply outline-double outline-offset-2 outline-white;
   }
   main {
-    @apply px-5;
+    @apply mx-5 xl:pl-[var(--desktopSidebarWidth)];
   }
 }
 
 :root {
   --mobileNavHeight: 4.25rem;
+  --desktopSidebarWidth: 25rem;
 }
 
 /* body overlay when PrimaryNavigation is open */
@@ -24,5 +25,5 @@ body::before {
 }
 
 .body-overlay-active::before {
-  @apply z-auto opacity-[100%]  duration-500 ease-in-out;
+  @apply z-auto overflow-hidden  opacity-[100%] duration-500 ease-in-out xl:hidden;
 }

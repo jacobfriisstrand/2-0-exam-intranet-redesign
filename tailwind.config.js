@@ -80,6 +80,13 @@ module.exports = {
       height: {
         mobileNavigation: "var(--mobileNavHeight)",
       },
+      width: {
+        desktopSidebarWidth: "var(--desktopSidebarWidth)",
+      },
+      margin: {
+        desktopSidebarWidth: "var(--desktopSidebarWidth)",
+        contentMargin: "var(--contentMargin)",
+      },
     },
   },
 

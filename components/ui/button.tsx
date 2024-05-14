@@ -8,7 +8,7 @@ import { MdOutlineMotionPhotosOn } from "react-icons/md";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  " inline-flex place-items-center justify-center truncate gap-2 rounded-base w-fit px-3 py-2 transition-colors ease-in-out duration-200 disabled:opacity-50 disabled:pointer-events-none",
+  " inline-flex place-items-center justify-center truncate gap-2 rounded-base w-fit px-3 py-2 transition-colors ease-in-out disabled:opacity-50 disabled:pointer-events-none",
   {
     variants: {
       variant: {
@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-accent border-base text-white hover:bg-transparent hover:border-accent hover:text-accent",
         ctaOutlined:
           "bg-transparent border-accent border-base text-accent hover:bg-accent hover:text-white hover:border-accent",
-        unstyled: "px-0 py-0 gap-0 rounded-none",
+        unstyled: "px-0 py-0 gap-0 rounded-none transition-none",
       },
     },
   },

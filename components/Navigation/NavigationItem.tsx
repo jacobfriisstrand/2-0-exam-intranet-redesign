@@ -15,9 +15,7 @@ interface NavItem {
   svgIcon: string;
   target?: {
     title: string;
-    slug: {
-      current: string;
-    };
+    slug: string;
   };
   children?: NavItem[];
 }
@@ -38,6 +36,8 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
       [key]: !prev[key],
     }));
   };
+
+  const basePath = "/protected/";
 
   return (
     <li className="max-w-fit text-baseLarge">
@@ -117,7 +117,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                               <li key={subChild._key}>
                                 <Link
                                   className="transition-colors hover:text-accent"
-                                  href={`/${subChild.target?.slug.current}`}
+                                  href={`${basePath}${subChild.target?.slug}`}
                                 >
                                   {subChild.target?.title || subChild.title}
                                 </Link>
@@ -131,7 +131,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                     <li key={child._key}>
                       <Link
                         className="transition-colors hover:text-accent"
-                        href={`/${child.target?.slug.current}`}
+                        href={`${basePath}${child.target?.slug}`}
                       >
                         {child.target?.title || child.title}
                       </Link>
@@ -145,7 +145,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
       ) : (
         <Link
           className="grid grid-cols-[auto_auto] items-center gap-2 transition-colors hover:text-accent "
-          href={`/${navItem.target?.slug.current}`}
+          href={`${basePath}${navItem.target?.slug}`}
         >
           <div
             className="flex size-[1em] items-center justify-center"

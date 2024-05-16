@@ -22,7 +22,7 @@ function Calendar({
       fromYear={1950}
       toYear={new Date().getFullYear()}
       className={cn(
-        "rounded-base bg-black p-3 ring-1 ring-lightGray",
+        "my-2 rounded-base bg-black p-3 ring-1 ring-lightGray",
         className,
       )}
       classNames={{

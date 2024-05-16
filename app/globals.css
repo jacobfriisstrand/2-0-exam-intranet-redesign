@@ -12,11 +12,15 @@
   main {
     @apply mx-5 lg:pl-[var(--desktopSidebarWidth)];
   }
+
+  p {
+    @apply max-w-[65ch];
+  }
 }
 
 :root {
   --mobileNavHeight: 4.25rem;
-  --desktopSidebarWidth: 25rem;
+  --desktopSidebarWidth: 20rem;
 }
 
 /* body overlay when PrimaryNavigation is open */

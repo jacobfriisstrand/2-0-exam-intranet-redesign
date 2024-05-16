@@ -11,9 +11,7 @@ interface NavItem {
   svgIcon: string;
   target?: {
     title: string;
-    slug: {
-      current: string;
-    };
+    slug: string;
   };
   children?: NavItem[];
 }

@@ -99,10 +99,20 @@ export default function CompleteProfile({
   };
 
   return (
-    <div className="flex h-screen place-items-center justify-center px-5">
-      <section className="flex max-w-sm flex-1 flex-col place-items-center gap-8">
-        <AKQALogo className="w-40" />
-        <AnchorLogo className="w-20" />
+    <div className="container min-h-screen  max-w-screen-lg py-5">
+      <section className="space-y-5">
+        <div className="flex place-items-center justify-between">
+          <AKQALogo className="w-20" />
+          <AnchorLogo className="w-10" />
+        </div>
+        <div>
+          <h1 className="font-heading text-step2 lg:text-step5">
+            Complete your profile
+          </h1>
+          <p className="text-lightGray">
+            You must fill out your details before continuing.
+          </p>
+        </div>
         <CompleteProfileForm
           completeUserProfile={completeUserProfile}
           email={searchParams.email}

@@ -41,7 +41,14 @@ export default async function SignIn({
       return redirect("/?message=Could not fetch user profile");
     }
 
-    const requiredFields = ["full_name", "phone_number", "address"]; // Add other required fields as needed
+    const requiredFields = [
+      "full_name",
+      "phone",
+      "birthday",
+      "current_position",
+      "studio_location",
+      "avatar_url",
+    ]; // Add other required fields as needed
     const missingFields = requiredFields.filter((field) => !profile[field]);
 
     if (missingFields.length > 0) {

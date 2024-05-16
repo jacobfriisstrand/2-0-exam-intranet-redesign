@@ -104,163 +104,161 @@ export default function CompleteProfileForm({
   return (
     <Form {...form}>
       <form
-        className="w-full space-y-4"
+        className="w-full gap-5 space-y-4 lg:grid lg:grid-cols-2 lg:items-baseline lg:space-y-0"
         onSubmit={form.handleSubmit(handleSubmit)}
       >
-        <FormField
-          control={form.control}
-          name="avatar_url"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="avatar_url">Upload avatar</FormLabel>
-              <FormControl>
-                <Input
-                  type="file"
-                  onChange={(e) => {
-                    field.onChange(e.target.files as unknown as FileList);
-                  }}
-                  ref={field.ref}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="full_name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="full_name">Full name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter your full name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="current_position"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="current_position">Position</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Enter your position"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="studio_location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="studio_location">Studio location</FormLabel>
-              <FormControl>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select studio location" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Copenhagen">Copenhagen</SelectItem>
-                    <SelectItem value="Aarhus">Aarhus</SelectItem>
-                    <SelectItem value="Cairo">Cairo</SelectItem>
-                    <SelectItem value="London">London</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <FormControl>
-                <Input type="email" {...field} value={email} readOnly />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="phone">Phone</FormLabel>
-              <FormControl>
-                <Input
-                  type="tel"
-                  placeholder="Enter your phone number"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="birthday"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="birthday">Birthday</FormLabel>
-              <FormControl>
-                <DatePicker
-                  value={field.value || new Date()}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  selected={field.value}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="skills"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="skills">Skills</FormLabel>
-              <FormControl>
-                <Textarea {...field} />
-              </FormControl>
-              <FormDescription>
-                Help others know what skillset you have and what you're good at.
-                Dont hold back.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button
-          formAction={form.handleSubmit(handleSubmit)}
-          type="submit"
-          className="w-full"
-          variant="ctaFilled"
-        >
-          Complete Profile
-        </Button>
-        {message && <p className="absolute text-danger">{message}</p>}
+        <div className="grid gap-5">
+          <FormField
+            control={form.control}
+            name="avatar_url"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="avatar_url">Upload avatar</FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    onChange={(e) => {
+                      field.onChange(e.target.files as unknown as FileList);
+                    }}
+                    ref={field.ref}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="full_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="full_name">Full name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your full name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="current_position"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="current_position">Position</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Enter your position"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="studio_location"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="studio_location">Studio location</FormLabel>
+                <FormControl>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select studio location" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Copenhagen">Copenhagen</SelectItem>
+                      <SelectItem value="Aarhus">Aarhus</SelectItem>
+                      <SelectItem value="Cairo">Cairo</SelectItem>
+                      <SelectItem value="London">London</SelectItem>
+                      <SelectItem value="Berlin">Berlin</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="email">Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    {...field}
+                    value={email}
+                    readOnly
+                    disabled
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="phone">Phone</FormLabel>
+                <FormControl>
+                  <Input
+                    type="tel"
+                    placeholder="Enter your phone number"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="birthday"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="birthday">Birthday</FormLabel>
+                <FormControl>
+                  <DatePicker
+                    value={field.value || new Date()}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    selected={field.value}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex min-h-full flex-col gap-5">
+          <FormField
+            control={form.control}
+            name="skills"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel htmlFor="skills">Skills</FormLabel>
+                <FormControl>
+                  <Textarea className="basis-52" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Help others know what skillset you have and what you're good
+                  at. Dont hold back.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="w-full" variant="ctaFilled">
+            Complete Profile
+          </Button>
+          {message && <p className="absolute text-danger">{message}</p>}
+        </div>
       </form>
     </Form>
   );

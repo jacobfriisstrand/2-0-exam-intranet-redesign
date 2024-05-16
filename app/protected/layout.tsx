@@ -9,7 +9,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mb-10 mt-[calc(var(--mobileNavHeight)+2rem)] lg:mt-[calc(var(--mobileNavHeight)+3.5rem)]">
+    <div className="mb-10 mt-[calc(var(--mobileNavHeight)+1.25rem)] lg:mt-[calc(var(--mobileNavHeight)+3.5rem)]">
       <PrimaryNavigation>
         <NavigationList />
         <SearchBar />

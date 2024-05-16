@@ -105,7 +105,7 @@ export default function PrimaryNavigation({
         <div
           className={`flex flex-col gap-6 px-5 lg:px-0 ${
             isOpened
-              ? "max-h-[calc(100vh-var(--mobileNavHeight))] overflow-y-auto lg:overflow-auto"
+              ? "max-h-[calc(100svh-var(--mobileNavHeight))] overflow-y-auto lg:overflow-auto"
               : "overflow-hidden"
           }`}
         >

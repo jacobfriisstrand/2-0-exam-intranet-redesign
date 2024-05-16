@@ -16,6 +16,15 @@
   p {
     @apply max-w-[65ch];
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply leading-none;
+  }
 }
 
 :root {

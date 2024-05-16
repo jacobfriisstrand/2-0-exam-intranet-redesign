@@ -25,6 +25,38 @@ interface NavigationItemProps {
 }
 
 const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
+  const variants = {
+    initial: {
+      height: 0,
+      marginTop: 0,
+      marginBottom: 0,
+      opacity: 0,
+    },
+    animate: {
+      height: "auto",
+      opacity: 1,
+      marginTop: 8,
+      marginBottom: 8,
+      transition: {
+        opacity: { duration: 0.3, ease: "easeInOut" },
+        height: { duration: 0.3, ease: "easeInOut" },
+        marginTop: { duration: 0.3, ease: "easeInOut" },
+        marginBottom: { duration: 0.3, ease: "easeInOut" },
+      },
+    },
+    exit: {
+      height: 0,
+      opacity: 0,
+      marginTop: 0,
+      marginBottom: 0,
+      transition: {
+        opacity: { duration: 0.3, ease: "easeInOut" },
+        height: { duration: 0.3, delay: 0.1, ease: "easeInOut" },
+        marginTop: { duration: 0.3, delay: 0.1, ease: "easeInOut" },
+        marginBottom: { duration: 0.3, delay: 0.1, ease: "easeInOut" },
+      },
+    },
+  };
   const [navItemIsOpen, setNavItemIsOpen] = useState<boolean>(false);
   const [subNavStates, setSubNavStates] = useState<{ [key: string]: boolean }>(
     {},
@@ -61,21 +93,10 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
             {navItemIsOpen && (
               <motion.ul
                 className="pl-8"
-                initial={{
-                  height: 0,
-                  marginTop: 0,
-                  opacity: 0,
-                }}
-                animate={{
-                  height: "auto",
-                  opacity: 1,
-                  marginTop: 8,
-                }}
-                exit={{
-                  height: 0,
-                  opacity: 0,
-                  marginTop: 0,
-                }}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={variants}
               >
                 {navItem.children.map((child) =>
                   child.children ? (
@@ -94,24 +115,10 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                         {subNavStates[child._key] && (
                           <motion.ul
                             className="pl-3"
-                            initial={{
-                              height: 0,
-                              marginTop: 0,
-                              marginBottom: 0,
-                              opacity: 0,
-                            }}
-                            animate={{
-                              height: "auto",
-                              opacity: 1,
-                              marginTop: 8,
-                              marginBottom: 8,
-                            }}
-                            exit={{
-                              height: 0,
-                              opacity: 0,
-                              marginTop: 0,
-                              marginBottom: 0,
-                            }}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
+                            variants={variants}
                           >
                             {child.children.map((subChild) => (
                               <li key={subChild._key}>

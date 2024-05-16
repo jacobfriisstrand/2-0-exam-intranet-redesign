@@ -11,6 +11,8 @@ const labelVariants = cva(
   {
     variants: {
       variant: {
+        default:
+          "peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-lightGray",
         hiddenLabel: "sr-only",
       },
     },
@@ -33,4 +35,4 @@ const Label = React.forwardRef<
 ));
 Label.displayName = LabelPrimitive.Root.displayName;
 
-export { Label };
+export { Label, labelVariants };

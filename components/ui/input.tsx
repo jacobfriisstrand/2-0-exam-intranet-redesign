@@ -10,14 +10,14 @@ export interface InputProps
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, icon, ...props }, ref) => {
     return (
-      <div className="w-full flex gap-2 place-items-center">
+      <div className="flex w-full place-items-center gap-2">
         {icon ? (
-          <div className="pointer-events-none text-inherit">{icon}</div>
+          <div className="text-inherit pointer-events-none">{icon}</div>
         ) : null}
         <input
           type={type}
           className={cn(
-            ` ring-1 ring-white truncate rounded-base bg-transparent p-2 placeholder:text-lightGray`,
+            ` w-full truncate rounded-base bg-transparent p-2 ring-1 ring-white placeholder:text-lightGray  disabled:opacity-50`,
             className,
           )}
           ref={ref}

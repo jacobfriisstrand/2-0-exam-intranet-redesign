@@ -1,3 +1,4 @@
+// Import necessary modules and types
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { MdArrowForward } from "react-icons/md";
 import AnchorLogo from "@/components/Logo/AnchorLogo";
 
-export default function SignIn({
+// Sign-in function
+export default async function SignIn({
   searchParams,
 }: {
   searchParams: { message: string };
@@ -19,13 +21,31 @@ export default function SignIn({
     const password = formData.get("password") as string;
     const supabase = createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error, data: session } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (error) {
+    if (error || !session) {
       return redirect("/?message=Could not authenticate user");
+    }
+
+    const { user } = session;
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+
+    if (profileError || !profile) {
+      return redirect("/?message=Could not fetch user profile");
+    }
+
+    const requiredFields = ["full_name", "phone_number", "address"]; // Add other required fields as needed
+    const missingFields = requiredFields.filter((field) => !profile[field]);
+
+    if (missingFields.length > 0) {
+      return redirect(`/complete-profile?email=${encodeURIComponent(email)}`);
     }
 
     return redirect("/protected");
@@ -61,9 +81,10 @@ export default function SignIn({
             />
           </div>
           <Button
+            formAction={signInUser}
             className="w-full"
             variant="ctaFilled"
-            formAction={signInUser}
+            type="submit"
           >
             Sign In
             <MdArrowForward />

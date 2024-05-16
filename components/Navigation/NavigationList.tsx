@@ -24,7 +24,7 @@ export default async function NavigationList() {
   return (
     <ul
       id="primary-navigation"
-      className="flex flex-col gap-4 xl:mt-7 xl:gap-7"
+      className="flex flex-col gap-4 lg:mt-7 lg:gap-7"
     >
       {navigationData?.map((navItem: NavItem) => (
         <NavigationItem key={navItem._key} navItem={navItem} />

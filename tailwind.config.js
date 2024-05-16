@@ -46,6 +46,7 @@ module.exports = {
     },
     borderRadius: {
       none: "0px",
+      inner: "0.125rem",
       base: "0.25rem",
     },
     borderColor: {
@@ -56,6 +57,7 @@ module.exports = {
       darkGray: "#383838",
     },
     borderWidth: {
+      none: "0px",
       base: "0.0625rem",
     },
     outlineWidth: {

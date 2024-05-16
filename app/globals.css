@@ -10,7 +10,7 @@
     @apply outline-double outline-offset-2 outline-white;
   }
   main {
-    @apply mx-5 xl:pl-[var(--desktopSidebarWidth)];
+    @apply mx-5 lg:pl-[var(--desktopSidebarWidth)];
   }
 }
 
@@ -25,5 +25,22 @@ body::before {
 }
 
 .body-overlay-active::before {
-  @apply z-auto overflow-hidden  opacity-[100%] duration-500 ease-in-out xl:hidden;
+  @apply z-auto overflow-hidden  opacity-[100%] duration-500 ease-in-out lg:hidden;
+}
+
+body.body-overlay-active {
+  @apply overflow-hidden lg:overflow-auto;
+}
+
+/* styling for month and year dropdown of calendar.tsx */
+.rdp [aria-hidden="true"] {
+  @apply sr-only;
+}
+
+.rdp-vhidden {
+  @apply sr-only;
+}
+
+select::-webkit-scrollbar {
+  display: none;
 }

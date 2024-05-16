@@ -81,16 +81,16 @@ export default function PrimaryNavigation({
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 z-navigation min-h-[var(--mobileNavHeight)] w-full border-b-base border-b-darkGray bg-black bg-opacity-base backdrop-blur-base xl:h-screen xl:w-desktopSidebarWidth xl:border-r-base xl:border-r-darkGray xl:px-6 xl:py-7"
+      className="fixed top-0 z-navigation min-h-[var(--mobileNavHeight)] w-full border-b-base border-b-darkGray bg-black bg-opacity-base backdrop-blur-base lg:h-screen lg:w-desktopSidebarWidth lg:border-b-none lg:border-r-base lg:border-r-darkGray lg:px-6 lg:py-7"
     >
-      <div className={"flex place-items-center justify-between p-5 xl:p-0"}>
+      <div className={"flex place-items-center justify-between p-5 lg:p-0"}>
         <Link
           href="/protected"
           aria-label="Home"
           className="flex place-items-center gap-2"
         >
-          <AKQALogo className="w-12 xl:w-28" />
-          <AnchorLogo className="w-7 xl:w-14" />
+          <AKQALogo className="w-12 lg:w-20" />
+          <AnchorLogo className="w-7 lg:w-10" />
         </Link>
         <Hamburger
           isOpened={isOpened}
@@ -98,14 +98,14 @@ export default function PrimaryNavigation({
         />
       </div>
       <div
-        className={`grid transition-[grid-template-rows] duration-500 ease-in-out xl:grid-rows-[1fr] ${
+        className={`grid transition-[grid-template-rows] duration-500 ease-in-out lg:grid-rows-[1fr] lg:transition-none ${
           isOpened ? "h-full grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
         <div
-          className={`flex flex-col gap-10 px-5 xl:px-0 ${
+          className={`flex flex-col gap-6 px-5 lg:px-0 ${
             isOpened
-              ? "max-h-[calc(100vh-var(--mobileNavHeight))] overflow-y-scroll xl:overflow-auto"
+              ? "max-h-[calc(100vh-var(--mobileNavHeight))] overflow-y-auto lg:overflow-auto"
               : "overflow-hidden"
           }`}
         >

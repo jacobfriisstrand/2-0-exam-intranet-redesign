@@ -20,6 +20,12 @@ const buttonVariants = cva(
         ctaOutlined:
           "bg-transparent border-accent border-base text-accent hover:bg-accent hover:text-white hover:border-accent",
         unstyled: "px-0 py-0 gap-0 rounded-none transition-none",
+        calendarSelect:
+          "border-white border-base w-full min-w-52 justify-start text-left aria-expanded:outline-double aria-expanded:outline-offset-2 aria-expanded:outline-white",
+        calendarDay:
+          "aria-selected:rounded-base focus-visible:bg-accent focus-visible:rounded-base focus-visible:border-none transition-none",
+        selectTrigger:
+          "border-white border-base w-full justify-between aria-expanded:outline-double aria-expanded:outline-offset-2 aria-expanded:outline-white",
       },
     },
   },

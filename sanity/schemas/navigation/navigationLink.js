@@ -1,5 +1,3 @@
-import { InlineSvgPreviewItem } from "@focus-reactive/sanity-plugin-inline-svg-input";
-
 export default {
   name: "navigation.link",
   type: "object",
@@ -15,7 +13,7 @@ export default {
     {
       name: "svgIcon",
       title: "SVG Icon",
-      type: "inlineSvg",
+      type: "string",
     },
     {
       type: "string",
@@ -37,27 +35,4 @@ export default {
       of: [{ type: "navigation.link" }],
     },
   ],
-  preview: {
-    select: {
-      icon: "svgIcon",
-      title: "title",
-      subtitle: "target.title",
-    },
-    prepare(selection) {
-      const { icon, title, subtitle } = selection;
-      return {
-        title: title || subtitle,
-        subtitle,
-        icon,
-      };
-    },
-    component: InlineSvgPreviewItem,
-  },
-  components: {
-    preview: ({ icon, title, subtitle }) => {
-      return (
-        <InlineSvgPreviewItem icon={icon} title={title} subtitle={subtitle} />
-      );
-    },
-  },
 };

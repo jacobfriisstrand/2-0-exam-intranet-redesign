@@ -14,7 +14,7 @@
   }
 
   p {
-    @apply max-w-[65ch];
+    @apply max-w-prose;
   }
 
   h1,
@@ -24,6 +24,11 @@
   h5,
   h6 {
     @apply leading-none;
+  }
+
+  input,
+  textarea {
+    @apply text-input lg:text-base;
   }
 }
 

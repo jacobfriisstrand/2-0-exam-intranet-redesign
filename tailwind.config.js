@@ -15,6 +15,7 @@ module.exports = {
       auto: "auto",
     },
     fontSize: {
+      input: "1rem",
       baseSmall: "0.75rem",
       base: "0.875rem",
       baseLarge: "1rem",

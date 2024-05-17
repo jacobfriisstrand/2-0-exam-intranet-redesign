@@ -40,7 +40,7 @@ export default async function SearchBar() {
         <p className="text-lightGray">{profile?.studio_location}</p>
       </div>
       <form className="col-start-2 lg:order-2 lg:row-start-1" action={signOut}>
-        <Button className="w-full" variant={"filled"}>
+        <Button className="h-max-content w-full" variant={"filled"}>
           Logout
         </Button>
       </form>
@@ -49,7 +49,7 @@ export default async function SearchBar() {
         <Input
           type="search"
           name="search"
-          className="w-full lg:w-fit"
+          className="h-fit w-full lg:w-fit"
           icon={<MdSearch className="text-accent" />}
           placeholder="Search..."
         />

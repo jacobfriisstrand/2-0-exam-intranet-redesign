@@ -2,6 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { cookies } from "next/headers";
 import {
   Form,
   FormControl,
@@ -22,8 +23,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEffect } from "react";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 
 const ProfileSchema = z.object({
   full_name: z.string().min(1, {
@@ -70,13 +71,16 @@ export default function CompleteProfileForm({
       studio_location: "",
       current_position: "",
       avatar_url: undefined,
-      email: "",
+      email: email,
       phone: "",
       skills: "",
     },
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (data: ProfileFormValues) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("full_name", data.full_name);
     formData.append("birthday", data.birthday.toISOString().split("T")[0]);
@@ -93,13 +97,8 @@ export default function CompleteProfileForm({
     }
 
     await completeUserProfile(formData);
+    setLoading(false);
   };
-
-  useEffect(() => {
-    if (form.getValues("email") !== email) {
-      form.setValue("email", email);
-    }
-  }, [email, form]);
 
   return (
     <Form {...form}>
@@ -247,14 +246,19 @@ export default function CompleteProfileForm({
                   <Textarea className="basis-52" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Help others know what skillset you have and what you're good
+                  Let others know what skillset you have and what you're good
                   at. Dont hold back.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" variant="ctaFilled">
+          <Button
+            isLoading={loading}
+            type="submit"
+            className="w-full"
+            variant="ctaFilled"
+          >
             Complete Profile
           </Button>
           {message && <p className="absolute text-danger">{message}</p>}

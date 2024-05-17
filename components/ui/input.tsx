@@ -17,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            ` w-full truncate rounded-base bg-transparent p-2 ring-1 ring-white placeholder:text-lightGray  disabled:opacity-50`,
+            `w-full truncate rounded-base bg-transparent p-2 ring-1 ring-white placeholder:text-lightGray  disabled:opacity-50`,
             className,
           )}
           ref={ref}

@@ -3,12 +3,17 @@ import AnchorLogo from "@/components/Logo/AnchorLogo";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import CompleteProfileForm from "./CompleteProfileForm"; // Import the client component
+import { cookies } from "next/headers";
 
 export default function CompleteProfile({
   searchParams,
 }: {
   searchParams: { email: string; message: string };
 }) {
+  const cookieStore = cookies();
+  const emailCookie = cookieStore.get("user_email");
+  const email = emailCookie?.value || "";
+
   const completeUserProfile = async (formData: FormData) => {
     "use server";
 
@@ -42,7 +47,7 @@ export default function CompleteProfile({
       return redirect("/complete-profile?message=Could not fetch profile data");
     }
 
-    let avatarUrl = profileData.avatar_url;
+    let avatarUrl = profileData?.avatar_url;
 
     // Delete the old avatar file if it exists
     if (avatarUrl) {
@@ -60,7 +65,7 @@ export default function CompleteProfile({
 
     // Upload the new avatar file to Supabase storage
     if (avatarFile) {
-      const filePath = `${userId}/${avatarFile.name}`;
+      const filePath = `${avatarFile.name}`;
       const { error: uploadError } = await supabase.storage
         .from("avatars")
         .upload(filePath, avatarFile, {
@@ -105,7 +110,7 @@ export default function CompleteProfile({
           <AKQALogo className="w-20" />
           <AnchorLogo className="w-10" />
         </div>
-        <div>
+        <div className="space-y-4">
           <h1 className="font-heading text-step2 lg:text-step5">
             Complete your profile
           </h1>
@@ -115,7 +120,7 @@ export default function CompleteProfile({
         </div>
         <CompleteProfileForm
           completeUserProfile={completeUserProfile}
-          email={searchParams.email}
+          email={email}
           message={searchParams.message}
         />
       </section>

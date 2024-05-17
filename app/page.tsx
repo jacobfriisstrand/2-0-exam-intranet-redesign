@@ -7,8 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { MdArrowForward } from "react-icons/md";
 import AnchorLogo from "@/components/Logo/AnchorLogo";
+import { cookies } from "next/headers";
 
-// Sign-in function
 export default async function SignIn({
   searchParams,
 }: {
@@ -52,7 +52,9 @@ export default async function SignIn({
     const missingFields = requiredFields.filter((field) => !profile[field]);
 
     if (missingFields.length > 0) {
-      return redirect(`/complete-profile?email=${encodeURIComponent(email)}`);
+      // Set the cookie with the email address
+      cookies().set("user_email", email, { path: "/", httpOnly: true });
+      return redirect("/complete-profile");
     }
 
     return redirect("/protected");

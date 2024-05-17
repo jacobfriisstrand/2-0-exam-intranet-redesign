@@ -62,7 +62,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isPending}
       >
         {isPending ? (
-          <MdOutlineMotionPhotosOn size={"1.5em"} className=" animate-spin" />
+          <MdOutlineMotionPhotosOn size={"1.5em"} className="animate-spin" />
         ) : (
           children
         )}

@@ -1,11 +1,10 @@
-// page.tsx
 import React from "react";
 import { getPage } from "@/sanity/sanity-utils";
 import { fetchTableData } from "@/utils/supabase/supabase-utils";
 import EmployeeCard from "@/components/EmployeeCard";
-// import other components as needed
+import CreateArticle from "@/components/CreateArticle";
+import NewsCard from "@/components/NewsCard";
 
-// Define the Page interface
 export interface Page {
   title: string;
   subheadline: string;
@@ -40,10 +39,9 @@ export default async function Page({ params }: PageProps) {
   // Map slugs to components
   const componentMapping: { [key: string]: React.FC<any> } = {
     employees: EmployeeCard,
+    "news-and-insights": NewsCard,
     // add other mappings
   };
-
-  const DynamicComponent = componentMapping[slug];
 
   return (
     <section>
@@ -52,11 +50,21 @@ export default async function Page({ params }: PageProps) {
         <p className="text-lightGray">{page.subheadline}</p>
       </div>
       <div className="mt-10">
-        {DynamicComponent ? (
-          <DynamicComponent data={data} />
-        ) : (
-          <p>No component found for this slug.</p>
-        )}
+        {Object.keys(data).map((tableName) => {
+          const DynamicComponent = componentMapping[slug];
+          return DynamicComponent ? (
+            <>
+              <DynamicComponent
+                key={tableName}
+                baseSlug={slug}
+                data={data[tableName]}
+              />
+              <CreateArticle />
+            </>
+          ) : (
+            <p key={tableName}>No component found for this slug.</p>
+          );
+        })}
       </div>
     </section>
   );

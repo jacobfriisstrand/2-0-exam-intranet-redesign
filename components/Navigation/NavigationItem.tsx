@@ -124,7 +124,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                               <li key={subChild._key}>
                                 <Link
                                   className="transition-colors hover:text-accent"
-                                  href={`${basePath}${subChild.target?.slug}`}
+                                  href={`${process.env.BASEPATH}${subChild.target?.slug}`}
                                 >
                                   {subChild.target?.title || subChild.title}
                                 </Link>
@@ -138,7 +138,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                     <li key={child._key}>
                       <Link
                         className="transition-colors hover:text-accent"
-                        href={`${basePath}${child.target?.slug}`}
+                        href={`${process.env.BASEPATH}${child.target?.slug}`}
                       >
                         {child.target?.title || child.title}
                       </Link>

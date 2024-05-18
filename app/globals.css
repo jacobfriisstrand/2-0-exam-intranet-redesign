@@ -23,7 +23,7 @@
   h4,
   h5,
   h6 {
-    @apply leading-none;
+    @apply leading-tight;
   }
 
   input,

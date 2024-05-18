@@ -65,7 +65,7 @@ export default function CompleteProfile({
 
     // Upload the new avatar file to Supabase storage
     if (avatarFile) {
-      const filePath = `${avatarFile.name}`;
+      const filePath = `${userId}/${avatarFile.name}`;
       const { error: uploadError } = await supabase.storage
         .from("avatars")
         .upload(filePath, avatarFile, {

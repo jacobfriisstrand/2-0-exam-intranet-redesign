@@ -1,4 +1,3 @@
-// components/EmployeeCard.tsx
 import React from "react";
 import { Profile } from "@/app/interfaces";
 import Image from "next/image";
@@ -9,18 +8,22 @@ type Props = {
 
 const EmployeeCard: React.FC<Props> = ({ data }) => {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-20">
-      {data.map((employee) => (
+    <div className="grid gap-10 lg:grid-cols-2 xxl:grid-cols-3">
+      {data.map((employee, index) => (
         <article
           className="grid gap-5 text-balance lg:grid-cols-2"
           key={employee.id}
         >
-          <div className="relative aspect-[3/4] size-full h-full ">
+          <div className="relative aspect-[3/4] size-full h-full">
             {employee.avatar_url && (
               <Image
                 style={{ objectFit: "cover" }}
                 src={employee.avatar_url}
                 alt={employee.full_name}
+                placeholder="blur"
+                blurDataURL={employee.avatar_url}
+                {...(index < 3 ? { priority: true } : {})}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 fill
               />
             )}
@@ -55,7 +58,7 @@ const EmployeeCard: React.FC<Props> = ({ data }) => {
               <p>{employee.birthday.toString()}</p>
             </div>
             <div className="col-span-2 lg:col-span-1">
-              <p className=" text-lightGray">Skills</p>
+              <p className="text-lightGray">Skills</p>
               <p>{employee.skills}</p>
             </div>
           </div>

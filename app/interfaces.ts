@@ -19,3 +19,15 @@ export interface Profile {
 }
 
 // Add interfaces for other tables as needed
+
+export interface NewsArticle {
+  id: number;
+  created_at: Date;
+  slug: string;
+  author_id: {
+    full_name: string;
+    avatar_url: string;
+  };
+  title: string;
+  content: string;
+}

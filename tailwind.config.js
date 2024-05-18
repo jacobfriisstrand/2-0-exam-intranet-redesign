@@ -10,7 +10,9 @@ module.exports = {
       center: true,
     },
     zIndex: {
-      navigation: "9999",
+      navigation: "9000",
+      overlay: "10000",
+      sheet: "11000",
       hide: "-1",
       auto: "auto",
     },
@@ -49,6 +51,7 @@ module.exports = {
       none: "0px",
       inner: "0.125rem",
       base: "0.25rem",
+      full: "9999px",
     },
     borderColor: {
       white: "#EDEDED",
@@ -77,7 +80,7 @@ module.exports = {
       md: "800px",
       lg: "1024px",
       xl: "1440px",
-      xxl: "1441px",
+      xxl: "1920px",
     },
     extend: {
       height: {

@@ -9,10 +9,16 @@ export interface Page {
 type PageProps = {
   params: {
     slug: string;
+    articleSlug: string;
   };
 };
 
 export default async function Page({ params }: PageProps) {
   console.log(params);
-  return <p>Article: {params.slug}</p>;
+
+  return (
+    <>
+      <p>Article: {params.articleSlug}</p>
+    </>
+  );
 }

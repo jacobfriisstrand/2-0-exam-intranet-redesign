@@ -9,4 +9,7 @@ module.exports = {
       },
     ],
   },
+  env: {
+    BASE_URL: "/protected",
+  },
 };

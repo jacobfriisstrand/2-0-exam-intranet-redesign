@@ -9,18 +9,16 @@ type Props = {
   baseSlug: string;
 };
 
-const NewsCard: React.FC<Props> = ({ data, baseSlug }) => {
+const ArticleCard: React.FC<Props> = ({ data, baseSlug }) => {
   return (
     <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-5">
       {data.map((article) => (
         <Link
+          key={article.id}
           className="group"
-          href={`${process.env.BASEPATH}/${baseSlug}/${article.slug}`}
+          href={`/${baseSlug}/${article.slug}`}
         >
-          <article
-            key={article.id}
-            className="flex h-full flex-col  gap-4 rounded-base border-base border-darkGray bg-black p-5 drop-shadow-base"
-          >
+          <article className="flex h-full flex-col gap-4 rounded-base border-base border-darkGray bg-black p-5 drop-shadow-base transition-all group-hover:scale-[0.99] group-hover:border-accent motion-reduce:transition-none">
             <h2 className="line-clamp-2 font-heading text-step1">
               {article.title}
             </h2>
@@ -33,7 +31,7 @@ const NewsCard: React.FC<Props> = ({ data, baseSlug }) => {
                     placeholder="blur"
                     blurDataURL={article.author_id?.avatar_url}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 100%, (max-width: 1200px) 50%, 33%"
                     className="rounded-full aspect-square object-cover"
                   />
                 </div>
@@ -44,7 +42,7 @@ const NewsCard: React.FC<Props> = ({ data, baseSlug }) => {
             </div>
             <hr className="border-darkGray" />
             <p className="line-clamp-5">{article.content}</p>
-            <MdOutlineArrowOutward className="mt-auto size-5 transition-colors group-hover:text-accent" />
+            <MdOutlineArrowOutward className="mt-auto size-5 transition-[transform_colors] group-hover:translate-x-2 group-hover:text-accent" />
           </article>
         </Link>
       ))}
@@ -52,4 +50,4 @@ const NewsCard: React.FC<Props> = ({ data, baseSlug }) => {
   );
 };
 
-export default NewsCard;
+export default ArticleCard;

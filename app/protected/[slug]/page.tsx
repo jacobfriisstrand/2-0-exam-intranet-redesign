@@ -3,7 +3,7 @@ import { getPage } from "@/sanity/sanity-utils";
 import { fetchTableData } from "@/utils/supabase/supabase-utils";
 import EmployeeCard from "@/components/EmployeeCard";
 import CreateArticle from "@/components/CreateArticle";
-import NewsCard from "@/components/NewsCard";
+import ArticleCard from "@/components/ArticleCard";
 
 export interface Page {
   title: string;
@@ -43,7 +43,8 @@ export default async function Page({ params }: PageProps) {
   // Map slugs to components
   const componentMapping: { [key: string]: React.FC<any> } = {
     employees: EmployeeCard,
-    "news-and-insights": NewsCard,
+    "news-and-insights": ArticleCard,
+
     // add other mappings
   };
 

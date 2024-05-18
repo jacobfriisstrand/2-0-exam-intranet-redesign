@@ -69,14 +69,14 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
     }));
   };
 
-  const basePath = "/protected/";
+  console.log(process.env.BASE_URL);
 
   return (
-    <li className="max-w-fit text-baseLarge">
+    <li className=" max-w-fit text-baseLarge">
       {navItem.children ? (
         <>
           <Button
-            className={`grid grid-cols-[auto_auto_auto] place-items-center gap-2 transition-colors hover:text-accent ${navItemIsOpen ? "text-accent" : ""}`}
+            className={`group grid grid-cols-[auto_auto_auto] place-items-center gap-2 transition-colors hover:text-accent  ${navItemIsOpen ? "text-accent" : ""}`}
             variant={"unstyled"}
             onClick={() => setNavItemIsOpen(!navItemIsOpen)}
           >
@@ -86,7 +86,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
             />
             <span>{navItem.title}</span>
             <MdOutlineExpandMore
-              className={`transition ${navItemIsOpen ? "rotate-180 text-accent" : "text-white"}`}
+              className={`transition group-hover:text-accent  ${navItemIsOpen ? "rotate-180 text-accent" : "text-white"}`}
             />
           </Button>
           <AnimatePresence>
@@ -102,13 +102,13 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                   child.children ? (
                     <li key={child._key}>
                       <Button
-                        className={`grid grid-cols-[auto_auto_auto] place-items-center gap-2 overflow-hidden transition-colors hover:text-accent ${subNavStates[child._key] ? "text-accent" : ""}`}
+                        className={`group grid grid-cols-[auto_auto_auto] place-items-center gap-2 overflow-hidden transition-colors hover:text-accent hover:text-accent ${subNavStates[child._key] ? "text-accent" : ""}`}
                         variant={"unstyled"}
                         onClick={() => toggleSubNavItem(child._key)}
                       >
                         <span>{child.title}</span>
                         <MdOutlineExpandMore
-                          className={`transition ${subNavStates[child._key] ? "rotate-180 text-accent" : "text-white"}`}
+                          className={`transition group-hover:text-accent ${subNavStates[child._key] ? "rotate-180 text-accent" : "text-white"}`}
                         />
                       </Button>
                       <AnimatePresence>
@@ -123,8 +123,8 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                             {child.children.map((subChild) => (
                               <li key={subChild._key}>
                                 <Link
-                                  className="transition-colors hover:text-accent"
-                                  href={`${process.env.BASEPATH}${subChild.target?.slug}`}
+                                  className="transition-colors hover:text-accent "
+                                  href={`${process.env.BASE_URL}/${subChild.target?.slug}`}
                                 >
                                   {subChild.target?.title || subChild.title}
                                 </Link>
@@ -138,7 +138,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                     <li key={child._key}>
                       <Link
                         className="transition-colors hover:text-accent"
-                        href={`${process.env.BASEPATH}${child.target?.slug}`}
+                        href={`${process.env.BASE_URL}/${child.target?.slug}`}
                       >
                         {child.target?.title || child.title}
                       </Link>
@@ -151,8 +151,8 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
         </>
       ) : (
         <Link
-          className="grid grid-cols-[auto_auto] items-center gap-2 transition-colors hover:text-accent "
-          href={`${basePath}${navItem.target?.slug}`}
+          className="grid grid-cols-[auto_auto] items-center gap-2 transition-colors hover:text-accent  "
+          href={`${process.env.BASE_URL}/${navItem.target?.slug}`}
         >
           <div
             className="flex size-[1em] items-center justify-center"

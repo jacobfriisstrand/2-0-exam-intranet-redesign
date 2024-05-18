@@ -1,9 +1,9 @@
+// utils/supabase/server.ts
 import { createClient } from "@/utils/supabase/server";
 
 export async function fetchTableData(slug: string) {
   const supabase = createClient();
 
-  // Map slugs to table names and custom queries
   const tableMapping: {
     [key: string]: {
       tableName: string;
@@ -25,7 +25,6 @@ export async function fetchTableData(slug: string) {
         order: { column: "created_at", ascending: false },
       },
     ],
-    // Add other mappings as needed
   };
 
   const tableQueries = tableMapping[slug];
@@ -48,7 +47,6 @@ export async function fetchTableData(slug: string) {
       throw new Error(error.message);
     }
 
-    // Fetch public URLs for avatar images if they exist in the table
     const dataWithAvatars = await Promise.all(
       data.map(async (item: any) => {
         if (item.avatar_url) {

@@ -16,7 +16,7 @@ const ArticleCard: React.FC<Props> = ({ data, baseSlug }) => {
         <Link
           key={article.id}
           className="group"
-          href={`/${baseSlug}/${article.slug}`}
+          href={`${process.env.BASE_URL}/${baseSlug}/${article.slug}`}
         >
           <article className="flex h-full flex-col gap-4 rounded-base border-base border-darkGray bg-black p-5 drop-shadow-base transition-all group-hover:scale-[0.99] group-hover:border-accent motion-reduce:transition-none">
             <h2 className="line-clamp-2 font-heading text-step1">

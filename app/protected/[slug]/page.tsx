@@ -11,6 +11,10 @@ export interface Page {
   slug: string;
 }
 
+export interface TableData {
+  [key: string]: any[]; // Replace `any` with a more specific type if possible
+}
+
 type PageProps = {
   params: {
     slug: string;
@@ -21,7 +25,7 @@ export default async function Page({ params }: PageProps) {
   const slug = params.slug;
   const page: Page = await getPage(slug);
 
-  let data;
+  let data: TableData;
   try {
     data = await fetchTableData(slug);
   } catch (error) {

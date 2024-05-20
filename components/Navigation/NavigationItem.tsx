@@ -69,8 +69,6 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
     }));
   };
 
-  console.log(process.env.BASE_URL);
-
   return (
     <li className=" max-w-fit text-baseLarge">
       {navItem.children ? (
@@ -102,7 +100,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                   child.children ? (
                     <li key={child._key}>
                       <Button
-                        className={`group grid grid-cols-[auto_auto_auto] place-items-center gap-2 overflow-hidden transition-colors hover:text-accent hover:text-accent ${subNavStates[child._key] ? "text-accent" : ""}`}
+                        className={`group grid grid-cols-[auto_auto_auto] place-items-center gap-2 overflow-hidden transition-colors hover:text-accent ${subNavStates[child._key] ? "text-accent" : ""}`}
                         variant={"unstyled"}
                         onClick={() => toggleSubNavItem(child._key)}
                       >

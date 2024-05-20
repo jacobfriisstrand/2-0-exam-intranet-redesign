@@ -29,28 +29,33 @@ import { useState } from "react";
 
 // Define the schema for the form validation
 const FormSchema = z.object({
-  content: z.string().min(10, {
-    message: "The text must be at least 10 characters long",
-  }),
-  title: z.string().min(1, { message: "Title is required" }),
-  generalError: z.string().optional(), // Add a custom field for general errors
+  service: z.string().min(1, { message: "Service is required." }),
+  username: z.string().min(1, { message: "Username is required." }),
+  password: z.string().min(1, { message: "Password is required." }),
+  purpose: z.string().min(1, { message: "Purpose is required." }),
 });
 
-interface CreateArticleProps {
+interface CreateSingleLineItemProps {
   tableName: string;
 }
 
-export default function CreateArticle({ tableName }: CreateArticleProps) {
+export default function CreateSingleLineItem({
+  tableName,
+}: CreateSingleLineItemProps) {
   const supabase = createClient(); // Initialize the client-side Supabase client
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      title: "",
-      content: "",
+      service: "",
+      username: "",
+      password: "",
+      purpose: "",
     },
   });
+
+  console.log(tableName);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
@@ -59,26 +64,20 @@ export default function CreateArticle({ tableName }: CreateArticleProps) {
 
     if (sessionError) {
       console.error("Error getting session:", sessionError.message);
-      form.setError("generalError", { message: sessionError.message });
-      setLoading(false);
       return;
     }
 
     const user = sessionData.session?.user;
 
     if (user) {
-      const userId = user.id;
-      const { title, content } = data;
+      const { service, username, password, purpose } = data;
 
       // Insert the new article into the specified table
       const { error } = await supabase.from(tableName).insert({
-        title,
-        content,
-        author_id: userId,
-        slug: title
-          .replace(/[^\w\s]/gi, "")
-          .replace(/\s+/g, "-")
-          .toLowerCase(),
+        service,
+        username,
+        password,
+        purpose,
       });
 
       if (error) {
@@ -88,13 +87,11 @@ export default function CreateArticle({ tableName }: CreateArticleProps) {
         if (error.message.includes("duplicate key value")) {
           errorMessage = "The title must be unique";
         }
-        form.setError("generalError", { message: errorMessage });
       } else {
         window.location.reload();
       }
     } else {
       console.error("User is not logged in");
-      form.setError("generalError", { message: "User is not logged in" });
     }
     setLoading(false);
   }
@@ -104,24 +101,24 @@ export default function CreateArticle({ tableName }: CreateArticleProps) {
       <SheetTrigger asChild>
         <Button variant="sheetTrigger" className="fixed bottom-10 right-10">
           <MdEdit className="aria-hidden:true h-[1em]" />
-          Add Content
+          Add Login
         </Button>
       </SheetTrigger>
       <SheetContent className="">
         <SheetHeader>
           <SheetTitle className="">
             <MdEditSquare className="aria-hidden:true h-[1em]" />
-            Add Content
+            Add Login
           </SheetTitle>
         </SheetHeader>
         <Form {...form}>
           <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="title"
+              name="service"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="title">Title</FormLabel>
+                  <FormLabel htmlFor="service">Service</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -129,17 +126,38 @@ export default function CreateArticle({ tableName }: CreateArticleProps) {
                 </FormItem>
               )}
             />
-            {form.formState.errors.generalError && (
-              <p className=" text-danger">
-                {form.formState.errors.generalError.message}
-              </p>
-            )}
             <FormField
               control={form.control}
-              name="content"
+              name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="content">Content</FormLabel>
+                  <FormLabel htmlFor="username">Username</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="purpose"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="purpose">Purpose</FormLabel>
                   <FormControl>
                     <Textarea rows={10} {...field} />
                   </FormControl>
@@ -147,14 +165,13 @@ export default function CreateArticle({ tableName }: CreateArticleProps) {
                 </FormItem>
               )}
             />
-
             <Button
               isLoading={loading}
               type="submit"
               className="w-full"
               variant="ctaFilled"
             >
-              Publish
+              Add
               <MdArrowForward />
             </Button>
           </form>

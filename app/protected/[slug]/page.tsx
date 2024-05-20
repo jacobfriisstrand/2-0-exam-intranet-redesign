@@ -4,6 +4,10 @@ import { fetchTableData } from "@/utils/supabase/supabase-utils";
 import EmployeeCard from "@/components/EmployeeCard";
 import CreateArticle from "@/components/CreateArticle";
 import ArticleCard from "@/components/ArticleCard";
+import FileList from "@/components/FileList";
+import { CreateFile } from "@/components/CreateFile";
+import SingleLineList from "@/components/SingleLineList";
+import CreateSingleLineItem from "@/components/CreateSingleLineItem";
 
 export interface Page {
   title: string;
@@ -12,13 +16,40 @@ export interface Page {
 }
 
 export interface TableData {
-  [key: string]: any[]; // Replace `any` with a more specific type if possible
+  [key: string]: any[] | string | undefined;
+  bucketName?: string | undefined;
+  tableName?: string | undefined;
 }
 
 type PageProps = {
   params: {
     slug: string;
   };
+};
+
+const componentMapping: { [key: string]: React.FC<any> } = {
+  employees: EmployeeCard,
+  "news-and-insights": ArticleCard,
+  "file-templates": FileList,
+  "shared-logins": SingleLineList,
+  "town-square": ArticleCard,
+  // add other mappings
+};
+
+// Mapping to determine whether to render CreateArticle or CreateFile
+const creationComponentMapping: {
+  [key: string]:
+    | "CreateArticle"
+    | "CreateFile"
+    | "CreateSingleLineItem"
+    | undefined;
+} = {
+  employees: undefined,
+  "news-and-insights": "CreateArticle",
+  "file-templates": "CreateFile",
+  "shared-logins": "CreateSingleLineItem",
+  "town-square": "CreateArticle",
+  // add other mappings
 };
 
 export default async function Page({ params }: PageProps) {
@@ -40,13 +71,7 @@ export default async function Page({ params }: PageProps) {
     );
   }
 
-  // Map slugs to components
-  const componentMapping: { [key: string]: React.FC<any> } = {
-    employees: EmployeeCard,
-    "news-and-insights": ArticleCard,
-
-    // add other mappings
-  };
+  const bucketName = data.bucketName;
 
   return (
     <section>
@@ -56,16 +81,28 @@ export default async function Page({ params }: PageProps) {
       </div>
       <div className="mt-10">
         {Object.keys(data).map((tableName) => {
+          if (tableName === "bucketName") return null; // Skip bucketName key
           const DynamicComponent = componentMapping[slug];
+          const CreationComponent = creationComponentMapping[slug];
+
           return DynamicComponent ? (
-            <>
+            <React.Fragment key={tableName}>
               <DynamicComponent
-                key={tableName}
                 baseSlug={slug}
                 data={data[tableName]}
+                bucketName={bucketName}
+                tableName={tableName}
               />
-              <CreateArticle />
-            </>
+              {CreationComponent === "CreateArticle" && (
+                <CreateArticle tableName={tableName ?? ""} />
+              )}
+              {CreationComponent === "CreateFile" && bucketName && (
+                <CreateFile bucketName={bucketName ?? ""} />
+              )}
+              {CreationComponent === "CreateSingleLineItem" && tableName && (
+                <CreateSingleLineItem tableName={tableName ?? ""} />
+              )}
+            </React.Fragment>
           ) : (
             <p key={tableName}>No component found for this slug.</p>
           );

@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { cookies } from "next/headers";
 import {
   Form,
   FormControl,

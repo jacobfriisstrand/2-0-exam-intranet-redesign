@@ -1,11 +1,9 @@
-// interfaces.ts
 export interface Page {
   title: string;
   subheadline: string;
   slug: string;
 }
 
-// Define interfaces for your tables
 export interface Profile {
   id: number;
   full_name: string;
@@ -18,9 +16,7 @@ export interface Profile {
   birthday: Date;
 }
 
-// Add interfaces for other tables as needed
-
-export interface NewsArticle {
+export interface Article {
   id: number;
   created_at: Date;
   slug: string;
@@ -30,4 +26,24 @@ export interface NewsArticle {
   };
   title: string;
   content: string;
+}
+
+export interface File {
+  name: string;
+  id: string;
+  updated_at: string;
+  created_at: string;
+  metadata: {
+    size: 1042157;
+    mimetype: string;
+    lastModified: string;
+  };
+}
+
+export interface SingleLineItem {
+  id: number;
+  service: string;
+  username: string;
+  password: string;
+  purpose: string;
 }

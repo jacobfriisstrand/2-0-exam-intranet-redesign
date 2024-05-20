@@ -1,12 +1,7 @@
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 import React from "react";
 import Image from "next/image";
 import { format } from "date-fns";
-export interface Page {
-  title: string;
-  subheadline: string;
-  slug: string;
-}
 
 type PageProps = {
   params: {
@@ -20,21 +15,22 @@ export default async function Page({ params }: PageProps) {
 
   const { data: article, error } = await supabase
     .from("news")
-    .select("title, content, created_at, author_id (full_name, avatar_url)")
+    .select(
+      "id, author_id (full_name, avatar_url), title, content, created_at, slug",
+    )
     .eq("slug", params.articleSlug)
     .single();
 
   const { data: avatarData } = supabase.storage
     .from("avatars")
+    // @ts-ignore
     .getPublicUrl(article?.author_id.avatar_url);
-
-  console.log(params);
 
   return (
     <article className="mx-auto max-w-prose space-y-7">
       <h1 className="font-heading text-step6">{article?.title}</h1>
       <div className="flex place-items-center gap-3 ">
-        <div className="relative size-14">
+        <div className="relative size-12">
           <Image
             src={avatarData.publicUrl}
             alt="Avatar"
@@ -45,10 +41,11 @@ export default async function Page({ params }: PageProps) {
             className="rounded-full aspect-square object-cover"
           />
         </div>
-        <div>
+        <div className="text-baseSmall">
+          {/* @ts-ignore */}
           <p>{article?.author_id.full_name}</p>
           <p className="text-lightGray">
-            {format(new Date(article?.created_at), "yyyy-MM-dd")}
+            {format(new Date(article?.created_at), "PPP")}
           </p>
           <p className="text-lightGray">
             {format(new Date(article?.created_at), "p")}
@@ -56,7 +53,7 @@ export default async function Page({ params }: PageProps) {
         </div>
       </div>
       <hr className="border-darkGray" />
-      <p>{article?.content}</p>
+      <p className="whitespace-break-spaces">{article?.content}</p>
     </article>
   );
 }

@@ -1,15 +1,15 @@
-import { NewsArticle } from "@/app/interfaces";
+import { Article } from "@/app/interfaces";
 import { format } from "date-fns";
 import { MdOutlineArrowOutward } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
-  data: NewsArticle[];
+  data: Article[];
   baseSlug: string;
 };
 
-const ArticleCard: React.FC<Props> = ({ data, baseSlug }) => {
+async function ArticleCard({ data, baseSlug }: Props) {
   return (
     <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-5">
       {data.map((article) => (
@@ -48,6 +48,6 @@ const ArticleCard: React.FC<Props> = ({ data, baseSlug }) => {
       ))}
     </div>
   );
-};
+}
 
 export default ArticleCard;

@@ -33,6 +33,7 @@ const componentMapping: { [key: string]: React.FC<any> } = {
   "file-templates": FileList,
   "shared-logins": SingleLineList,
   "town-square": ArticleCard,
+  "company-policies": ArticleCard,
   // add other mappings
 };
 
@@ -49,6 +50,7 @@ const creationComponentMapping: {
   "file-templates": "CreateFile",
   "shared-logins": "CreateSingleLineItem",
   "town-square": "CreateArticle",
+  "company-policies": "CreateArticle",
   // add other mappings
 };
 

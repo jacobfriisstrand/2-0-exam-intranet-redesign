@@ -20,8 +20,6 @@ const EmployeeCard: React.FC<Props> = ({ data }) => {
                 style={{ objectFit: "cover" }}
                 src={employee.avatar_url}
                 alt={employee.full_name}
-                placeholder="blur"
-                blurDataURL={employee.avatar_url}
                 {...(index < 3 ? { priority: true } : {})}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 fill

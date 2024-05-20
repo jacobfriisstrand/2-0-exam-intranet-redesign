@@ -7,14 +7,16 @@ type PageProps = {
   params: {
     slug: string;
     articleSlug: string;
+    tableName: string;
   };
 };
 
 export default async function Page({ params }: PageProps) {
+  console.log(params.tableName);
   const supabase = createClient();
 
   const { data: article, error } = await supabase
-    .from("news")
+    .from(params.tableName)
     .select(
       "id, author_id (full_name, avatar_url), title, content, created_at, slug",
     )
@@ -34,11 +36,9 @@ export default async function Page({ params }: PageProps) {
           <Image
             src={avatarData.publicUrl}
             alt="Avatar"
-            placeholder="blur"
-            blurDataURL={avatarData.publicUrl}
             fill
             sizes="(max-width: 768px) 100%, (max-width: 1200px) 50%, 33%"
-            className="rounded-full aspect-square object-cover"
+            className="aspect-square rounded-full object-cover"
           />
         </div>
         <div className="text-baseSmall">

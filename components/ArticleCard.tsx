@@ -7,16 +7,17 @@ import Link from "next/link";
 type Props = {
   data: Article[];
   baseSlug: string;
+  tableName: string;
 };
 
-async function ArticleCard({ data, baseSlug }: Props) {
+async function ArticleCard({ data, baseSlug, tableName }: Props) {
   return (
     <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-5">
       {data.map((article) => (
         <Link
           key={article.id}
           className="group"
-          href={`${process.env.BASE_URL}/${baseSlug}/${article.slug}`}
+          href={`${process.env.BASE_URL}/${baseSlug}/${tableName}/${article.slug}`}
         >
           <article className="flex h-full flex-col gap-4 rounded-base border-base border-darkGray bg-black p-5 drop-shadow-base transition-all group-hover:scale-[0.99] group-hover:border-accent motion-reduce:transition-none">
             <h2 className="line-clamp-2 font-heading text-step1">
@@ -28,11 +29,9 @@ async function ArticleCard({ data, baseSlug }: Props) {
                   <Image
                     src={article.author_id?.avatar_url}
                     alt={article.author_id?.full_name}
-                    placeholder="blur"
-                    blurDataURL={article.author_id?.avatar_url}
                     fill
                     sizes="(max-width: 768px) 100%, (max-width: 1200px) 50%, 33%"
-                    className="rounded-full aspect-square object-cover"
+                    className="aspect-square rounded-full object-cover"
                   />
                 </div>
                 <p>{article.author_id?.full_name}</p>

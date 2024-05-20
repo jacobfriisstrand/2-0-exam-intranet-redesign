@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 
 interface TableMapping {
   tableName?: string;
@@ -51,6 +51,14 @@ export async function fetchTableData(
       {
         tableName: "town_square",
         query: `id, author_id (full_name, avatar_url), title, content, created_at, slug`,
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    "company-policies": [
+      {
+        tableName: "company_policies",
+        query:
+          "id, author_id (full_name, avatar_url), title, content, created_at, slug",
         order: { column: "created_at", ascending: false },
       },
     ],

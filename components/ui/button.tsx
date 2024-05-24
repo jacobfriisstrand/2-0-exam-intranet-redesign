@@ -27,7 +27,7 @@ const buttonVariants = cva(
         selectTrigger:
           "border-white border-base w-full justify-between aria-expanded:outline-double aria-expanded:outline-offset-2 aria-expanded:outline-white",
         sheetTrigger:
-          "bg-accent bg-opacity-[0.5] backdrop-blur-base border-base text-white hover:bg-accent",
+          "bg-accent bg-opacity-[0.5] backdrop-blur-base border-base text-white hover:bg-accent fixed bottom-10 right-10",
       },
     },
   },

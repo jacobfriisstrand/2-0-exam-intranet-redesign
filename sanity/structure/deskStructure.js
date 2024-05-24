@@ -30,6 +30,56 @@ export const deskStructure = (S, context) =>
       // We also need to remove the new singletons from the main list
       ...S.documentTypeListItems().filter(
         (listItem) =>
-          !["siteSettings", "navigation"].includes(listItem.getId()),
+          !["siteSettings", "navigation", "canteenMenuSchema"].includes(
+            listItem.getId(),
+          ),
       ),
+      S.listItem()
+        .title("Canteen Menu")
+        .child(
+          S.list()
+            .title("Weekdays")
+            .items([
+              S.listItem()
+                .title("Monday")
+                .child(
+                  S.document()
+                    .title("Monday")
+                    .schemaType("canteenMenuSchema")
+                    .documentId("monday"),
+                ),
+              S.listItem()
+                .title("Tuesday")
+                .child(
+                  S.document()
+                    .title("Tuesday")
+                    .schemaType("canteenMenuSchema")
+                    .documentId("tuesday"),
+                ),
+              S.listItem()
+                .title("Wednesday")
+                .child(
+                  S.document()
+                    .title("Wednesday")
+                    .schemaType("canteenMenuSchema")
+                    .documentId("wednesday"),
+                ),
+              S.listItem()
+                .title("Thursday")
+                .child(
+                  S.document()
+                    .title("Thursday")
+                    .schemaType("canteenMenuSchema")
+                    .documentId("thursday"),
+                ),
+              S.listItem()
+                .title("Friday")
+                .child(
+                  S.document()
+                    .title("Friday")
+                    .schemaType("canteenMenuSchema")
+                    .documentId("friday"),
+                ),
+            ]),
+        ),
     ]);

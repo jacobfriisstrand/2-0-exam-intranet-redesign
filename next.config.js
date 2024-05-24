@@ -7,6 +7,10 @@ module.exports = {
         protocol: "https",
         hostname: "nfguzmwwibzbsuamioqv.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
     ],
   },
   env: {

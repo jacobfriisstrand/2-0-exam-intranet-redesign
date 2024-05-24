@@ -62,6 +62,96 @@ export async function fetchTableData(
         order: { column: "created_at", ascending: false },
       },
     ],
+    "employee-benefits": [
+      {
+        tableName: "employee_benefits",
+        query:
+          "id, author_id (full_name, avatar_url), title, content, created_at, slug",
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    "work-environment": [
+      {
+        tableName: "work_environment",
+        query:
+          "id, author_id (full_name, avatar_url), title, content, created_at, slug",
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    "request-forms": [
+      {
+        bucketName: "request_forms",
+      },
+    ],
+    "annual-reports": [
+      {
+        bucketName: "annual_reports",
+      },
+    ],
+    "discounts-and-offers": [
+      {
+        tableName: "discounts_and_offers",
+        query:
+          "company, discount_code, info, author_id (full_name), id, created_at, expires_at",
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    creative: [
+      {
+        tableName: "creative",
+        query: `id, author_id (full_name, avatar_url), title, content, created_at, slug`,
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    ux: [
+      {
+        tableName: "ux",
+        query: `id, author_id (full_name, avatar_url), title, content, created_at, slug`,
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    performance: [
+      {
+        tableName: "performance",
+        query: `id, author_id (full_name, avatar_url), title, content, created_at, slug`,
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    "project-management": [
+      {
+        tableName: "project_management",
+        query: `id, author_id (full_name, avatar_url), title, content, created_at, slug`,
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    producers: [
+      {
+        tableName: "producers",
+        query: `id, author_id (full_name, avatar_url), title, content, created_at, slug`,
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    development: [
+      {
+        tableName: "development",
+        query: `id, author_id (full_name, avatar_url), title, content, created_at, slug`,
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    strategy: [
+      {
+        tableName: "strategy",
+        query: `id, author_id (full_name, avatar_url), title, content, created_at, slug`,
+        order: { column: "created_at", ascending: false },
+      },
+    ],
+    "employee-absence": [
+      {
+        tableName: "employee_absence",
+        query: `id, user_id (full_name), start_date, end_date, reason, created_at`,
+        order: { column: "created_at", ascending: false },
+      },
+    ],
   };
 
   const tableQueries = tableMapping[slug];

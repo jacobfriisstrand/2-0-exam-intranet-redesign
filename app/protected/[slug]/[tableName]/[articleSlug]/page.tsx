@@ -12,7 +12,8 @@ type PageProps = {
 };
 
 export default async function Page({ params }: PageProps) {
-  console.log(params.tableName);
+  console.log(params);
+
   const supabase = createClient();
 
   const { data: article, error } = await supabase
@@ -30,7 +31,9 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <article className="mx-auto max-w-prose space-y-7">
-      <h1 className="font-heading text-step6">{article?.title}</h1>
+      <h1 className="font-heading text-step3 lg:text-step6">
+        {article?.title}
+      </h1>
       <div className="flex place-items-center gap-3 ">
         <div className="relative size-12">
           <Image

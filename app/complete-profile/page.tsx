@@ -104,13 +104,13 @@ export default function CompleteProfile({
   };
 
   return (
-    <div className="container min-h-screen  max-w-screen-lg py-5">
-      <section className="space-y-5">
-        <div className="flex place-items-center justify-between">
-          <AKQALogo className="w-20" />
-          <AnchorLogo className="w-10" />
-        </div>
-        <div className="space-y-4">
+    <section className="container my-5 min-h-screen justify-center space-y-5 lg:mt-40">
+      <div className="flex w-full place-items-center justify-between">
+        <AKQALogo className="w-20" />
+        <AnchorLogo className="w-10" />
+      </div>
+      <div className="justify-center space-y-4">
+        <div className=" space-y-4">
           <h1 className="font-heading text-step2 lg:text-step5">
             Complete your profile
           </h1>
@@ -123,7 +123,7 @@ export default function CompleteProfile({
           email={email}
           message={searchParams.message}
         />
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

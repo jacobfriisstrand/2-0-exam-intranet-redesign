@@ -6,7 +6,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MdArrowForward, MdEditSquare } from "react-icons/md";
+import { MdArrowForward, MdCottage, MdEditSquare } from "react-icons/md";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -26,32 +26,42 @@ import { Textarea } from "./ui/textarea";
 import { MdEdit } from "react-icons/md";
 import { createClient } from "@/utils/supabase/client"; // Import the client-side Supabase client
 import { useState } from "react";
+import { DatePicker } from "./ui/datepicker";
+import { formatISO } from "date-fns";
 
 // Define the schema for the form validation
 const FormSchema = z.object({
-  service: z.string().min(1, { message: "Service is required." }),
-  username: z.string().min(1, { message: "Username is required." }),
-  password: z.string().min(1, { message: "Password is required." }),
-  purpose: z.string().min(1, { message: "Purpose is required." }),
+  reason: z.string().min(1, {
+    message: "Reason is required.",
+  }),
+  start_date: z.date({
+    required_error: "Start date is required.",
+    invalid_type_error: "Please select a valid date.",
+  }),
+  end_date: z.date({
+    required_error: "End date is required.",
+    invalid_type_error: "Please select a valid date.",
+  }),
 });
 
-interface CreateSingleLineItemProps {
+interface CreateAbsenceProps {
   tableName: string;
+  variant?: string;
 }
 
-export default function CreateSingleLineItem({
+export default function CreateAbsence({
   tableName,
-}: CreateSingleLineItemProps) {
+  variant,
+}: CreateAbsenceProps) {
   const supabase = createClient(); // Initialize the client-side Supabase client
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      service: "",
-      username: "",
-      password: "",
-      purpose: "",
+      reason: "",
+      start_date: new Date(),
+      end_date: new Date(),
     },
   });
 
@@ -62,26 +72,47 @@ export default function CreateSingleLineItem({
 
     if (sessionError) {
       console.error("Error getting session:", sessionError.message);
+      setLoading(false);
       return;
     }
 
     const user = sessionData.session?.user;
 
     if (user) {
-      const { service, username, password, purpose } = data;
+      const userId = user.id;
+      const { reason, start_date, end_date } = data;
 
-      // Insert the new article into the specified table
+      // Convert local date to UTC date string
+      const startDateUTC = formatISO(
+        new Date(
+          Date.UTC(
+            start_date.getFullYear(),
+            start_date.getMonth(),
+            start_date.getDate(),
+          ),
+        ),
+      );
+      const endDateUTC = formatISO(
+        new Date(
+          Date.UTC(
+            end_date.getFullYear(),
+            end_date.getMonth(),
+            end_date.getDate(),
+          ),
+        ),
+      );
+
+      // Insert the new Absence into the specified table
       const { error } = await supabase.from(tableName).insert({
-        service,
-        username,
-        password,
-        purpose,
+        reason,
+        start_date: startDateUTC,
+        end_date: endDateUTC,
+        user_id: userId,
       });
 
       if (error) {
-        console.error("Error creating article:", error.message);
-        // Handle specific errors
-        let errorMessage = "An error occurred while creating the article";
+        console.error("Error creating Absence:", error.message);
+        let errorMessage = "An error occurred while creating the Absence";
         if (error.message.includes("duplicate key value")) {
           errorMessage = "The title must be unique";
         }
@@ -97,28 +128,38 @@ export default function CreateSingleLineItem({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="sheetTrigger" className="fixed bottom-10 right-10">
-          <MdEdit className="aria-hidden:true h-[1em]" />
-          Add Login
+        <Button
+          variant={variant === "homepage" ? "filled" : "sheetTrigger"}
+          className=""
+        >
+          {variant !== "homepage" && (
+            <MdCottage className="aria-hidden:true h-[1em]" />
+          )}
+          Add absence
         </Button>
       </SheetTrigger>
       <SheetContent className="">
         <SheetHeader>
           <SheetTitle className="">
-            <MdEditSquare className="aria-hidden:true h-[1em]" />
-            Add Login
+            <MdCottage className="aria-hidden:true h-[1em]" />
+            Add absence
           </SheetTitle>
         </SheetHeader>
         <Form {...form}>
           <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="service"
+              name="start_date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="service">Service</FormLabel>
+                  <FormLabel htmlFor="start_date">Start Date</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <DatePicker
+                      value={field.value || new Date()}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      selected={field.value}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -126,50 +167,44 @@ export default function CreateSingleLineItem({
             />
             <FormField
               control={form.control}
-              name="username"
+              name="end_date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="username">Username</FormLabel>
+                  <FormLabel htmlFor="end_date">End Date</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <DatePicker
+                      value={field.value || new Date()}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      selected={field.value}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
-              name="password"
+              name="reason"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <FormLabel htmlFor="reason">Reason</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input id="reason" placeholder="Reason" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="purpose"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel htmlFor="purpose">Purpose</FormLabel>
-                  <FormControl>
-                    <Textarea rows={10} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <Button
               isLoading={loading}
               type="submit"
               className="w-full"
               variant="ctaFilled"
             >
-              Add
+              Publish
               <MdArrowForward />
             </Button>
           </form>

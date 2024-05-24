@@ -260,7 +260,7 @@ export default function CompleteProfileForm({
           >
             Complete Profile
           </Button>
-          {message && <p className="absolute text-danger">{message}</p>}
+          {message && <p className=" text-danger">{message}</p>}
         </div>
       </form>
     </Form>

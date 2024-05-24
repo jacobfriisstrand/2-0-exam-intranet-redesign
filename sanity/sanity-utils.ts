@@ -40,9 +40,30 @@ export async function getPage(slug: string) {
       title,
       slug,
       subheadline,
+      "image": image.asset->url,
     }`,
     { slug },
   );
 
   return page;
+}
+
+export async function getCanteenMenu(location: string) {
+  const client = createClient({
+    projectId: "2nmg5mzk",
+    dataset: "production",
+    apiVersion: "2024-05-13",
+  });
+
+  const menu = await client.fetch(
+    groq`*[_type == "canteenMenuSchema"] | order(dayOfWeek) {
+      "id": _id,
+      day,
+      ${location}{
+        mainDish,
+        veganDish
+      }
+    }`,
+  );
+  return menu;
 }

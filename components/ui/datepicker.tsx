@@ -44,7 +44,7 @@ export function DatePicker({ value, onChange, onBlur }: DatePickerProps) {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className="z-sheet w-auto p-0">
         <Calendar
           mode="single"
           selected={localDate}

@@ -7,7 +7,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MdArrowForward, MdEditSquare, MdUpload } from "react-icons/md";
+import { MdArrowForward, MdUpload } from "react-icons/md";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -23,7 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { MdEdit } from "react-icons/md";
+
 import { createClient } from "@/utils/supabase/client"; // Import the client-side Supabase client
 import { useState } from "react";
 
@@ -63,7 +63,6 @@ export const CreateFile: React.FC<CreateFileProps> = ({ bucketName }) => {
           upsert: false,
         });
 
-      console.log("bucket name", bucketName);
       window.location.reload();
       setLoading(false);
 

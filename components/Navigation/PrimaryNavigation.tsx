@@ -83,7 +83,11 @@ export default function PrimaryNavigation({
       ref={navRef}
       className="fixed top-0 z-navigation min-h-[var(--mobileNavHeight)] w-full border-b-base border-b-darkGray bg-black bg-opacity-base backdrop-blur-base lg:h-screen lg:w-desktopSidebarWidth lg:border-b-none lg:border-r-base lg:border-r-darkGray lg:px-6 lg:py-7"
     >
-      <div className={"flex place-items-center justify-between p-5 lg:p-0"}>
+      <div
+        className={
+          "flex min-h-[var(--mobileNavHeight)] place-items-center justify-between p-5 lg:p-0"
+        }
+      >
         <Link
           href="/protected"
           aria-label="Home"
@@ -98,12 +102,12 @@ export default function PrimaryNavigation({
         />
       </div>
       <div
-        className={`grid transition-[grid-template-rows] duration-500 ease-in-out lg:grid-rows-[1fr] lg:transition-none ${
+        className={`grid h-full transition-[grid-template-rows] duration-500 ease-in-out lg:grid-rows-[1fr] lg:transition-none ${
           isOpened ? "h-full grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
         <div
-          className={`flex flex-col gap-6 px-5 lg:px-0 ${
+          className={`flex flex-col justify-between  gap-6 px-5 lg:h-[95%] lg:px-0 ${
             isOpened
               ? "max-h-[calc(100svh-var(--mobileNavHeight))] overflow-y-auto lg:overflow-auto"
               : "overflow-hidden"

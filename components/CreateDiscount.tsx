@@ -6,7 +6,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MdArrowForward, MdEditSquare } from "react-icons/md";
+import { MdArrowForward, MdDiscount } from "react-icons/md";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -23,35 +23,43 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
-import { MdEdit } from "react-icons/md";
 import { createClient } from "@/utils/supabase/client"; // Import the client-side Supabase client
 import { useState } from "react";
+import { formatISO } from "date-fns";
+import { DatePicker } from "./ui/datepicker";
 
 // Define the schema for the form validation
 const FormSchema = z.object({
-  service: z.string().min(1, { message: "Service is required." }),
-  username: z.string().min(1, { message: "Username is required." }),
-  password: z.string().min(1, { message: "Password is required." }),
-  purpose: z.string().min(1, { message: "Purpose is required." }),
+  company: z.string().min(1, {
+    message: "Company is required.",
+  }),
+  discount_code: z.string().min(1, {
+    message: "Discount code is required.",
+  }),
+  info: z.string().min(1, {
+    message: "Info is required.",
+  }),
+  expires_at: z.date({
+    required_error: "Expires at is required.",
+    invalid_type_error: "Please select a valid date.",
+  }),
 });
 
-interface CreateSingleLineItemProps {
+interface CreateDiscountProps {
   tableName: string;
 }
 
-export default function CreateSingleLineItem({
-  tableName,
-}: CreateSingleLineItemProps) {
+export default function CreateDiscount({ tableName }: CreateDiscountProps) {
   const supabase = createClient(); // Initialize the client-side Supabase client
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      service: "",
-      username: "",
-      password: "",
-      purpose: "",
+      company: "",
+      discount_code: "",
+      info: "",
+      expires_at: new Date(),
     },
   });
 
@@ -62,26 +70,40 @@ export default function CreateSingleLineItem({
 
     if (sessionError) {
       console.error("Error getting session:", sessionError.message);
+
+      setLoading(false);
       return;
     }
 
     const user = sessionData.session?.user;
 
     if (user) {
-      const { service, username, password, purpose } = data;
+      const userId = user.id;
+      const { company, discount_code, info, expires_at } = data;
 
-      // Insert the new article into the specified table
+      const expiresAtUTC = formatISO(
+        new Date(
+          Date.UTC(
+            expires_at.getFullYear(),
+            expires_at.getMonth(),
+            expires_at.getDate(),
+          ),
+        ),
+      );
+
+      // Insert the new Discount into the specified table
       const { error } = await supabase.from(tableName).insert({
-        service,
-        username,
-        password,
-        purpose,
+        company,
+        discount_code,
+        info,
+        expires_at: expiresAtUTC,
+        author_id: userId,
       });
 
       if (error) {
-        console.error("Error creating article:", error.message);
+        console.error("Error creating Discount:", error.message);
         // Handle specific errors
-        let errorMessage = "An error occurred while creating the article";
+        let errorMessage = "An error occurred while creating the Discount";
         if (error.message.includes("duplicate key value")) {
           errorMessage = "The title must be unique";
         }
@@ -98,25 +120,25 @@ export default function CreateSingleLineItem({
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="sheetTrigger" className="fixed bottom-10 right-10">
-          <MdEdit className="aria-hidden:true h-[1em]" />
-          Add Login
+          <MdDiscount className="aria-hidden:true h-[1em]" />
+          Add Discount
         </Button>
       </SheetTrigger>
       <SheetContent className="">
         <SheetHeader>
           <SheetTitle className="">
-            <MdEditSquare className="aria-hidden:true h-[1em]" />
-            Add Login
+            <MdDiscount className="aria-hidden:true h-[1em]" />
+            Add Discout
           </SheetTitle>
         </SheetHeader>
         <Form {...form}>
           <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="service"
+              name="company"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="service">Service</FormLabel>
+                  <FormLabel htmlFor="company">Company</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -126,10 +148,10 @@ export default function CreateSingleLineItem({
             />
             <FormField
               control={form.control}
-              name="username"
+              name="discount_code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="username">Username</FormLabel>
+                  <FormLabel htmlFor="discount_code">Discount Code</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -137,25 +159,13 @@ export default function CreateSingleLineItem({
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
-              name="password"
+              name="info"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="password">Password</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="purpose"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel htmlFor="purpose">Purpose</FormLabel>
+                  <FormLabel htmlFor="info">Info</FormLabel>
                   <FormControl>
                     <Textarea rows={10} {...field} />
                   </FormControl>
@@ -163,13 +173,33 @@ export default function CreateSingleLineItem({
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="expires_at"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="expires_at">Expires at</FormLabel>
+                  <FormControl>
+                    <DatePicker
+                      value={field.value || new Date()}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      selected={field.value}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button
               isLoading={loading}
               type="submit"
               className="w-full"
               variant="ctaFilled"
             >
-              Add
+              Publish
               <MdArrowForward />
             </Button>
           </form>

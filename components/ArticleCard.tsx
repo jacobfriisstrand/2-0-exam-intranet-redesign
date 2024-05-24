@@ -3,20 +3,30 @@ import { format } from "date-fns";
 import { MdOutlineArrowOutward } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { createClient } from "@/utils/supabase/server";
 
 type Props = {
   data: Article[];
   baseSlug: string;
   tableName: string;
+  className?: string;
 };
 
-async function ArticleCard({ data, baseSlug, tableName }: Props) {
+async function ArticleCard({ data, baseSlug, tableName, className }: Props) {
+  const supabase = createClient();
+
+  const { data: sessionData, error: sessionError } =
+    await supabase.auth.getSession();
+  const user = sessionData.session?.user;
+  const userId = user?.id;
+
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-5">
+    <>
       {data.map((article) => (
         <Link
           key={article.id}
-          className="group"
+          className={cn("group", className)}
           href={`${process.env.BASE_URL}/${baseSlug}/${tableName}/${article.slug}`}
         >
           <article className="flex h-full flex-col gap-4 rounded-base border-base border-darkGray bg-black p-5 drop-shadow-base transition-all group-hover:scale-[0.99] group-hover:border-accent motion-reduce:transition-none">
@@ -45,7 +55,7 @@ async function ArticleCard({ data, baseSlug, tableName }: Props) {
           </article>
         </Link>
       ))}
-    </div>
+    </>
   );
 }
 

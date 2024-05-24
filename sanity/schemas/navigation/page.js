@@ -21,5 +21,19 @@ export default {
       title: "Subheadline",
       type: "text",
     },
+    {
+      name: "showImage",
+      title: "Show Image?",
+      type: "boolean",
+    },
+    {
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      hidden: ({ parent }) => !parent.showImage,
+    },
   ],
 };

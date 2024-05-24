@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import React from "react";
+import { usePathname } from "next/navigation";
 
 // Interface for NavigationItem props
 interface NavItem {
@@ -25,6 +26,7 @@ interface NavigationItemProps {
 }
 
 const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
+  const pathname = usePathname();
   const variants = {
     initial: {
       height: 0,
@@ -121,7 +123,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                             {child.children.map((subChild) => (
                               <li key={subChild._key}>
                                 <Link
-                                  className="transition-colors hover:text-accent "
+                                  className={`transition-colors hover:text-accent ${pathname === `${process.env.BASE_URL}/${subChild.target?.slug}` ? "text-accent" : ""} `}
                                   href={`${process.env.BASE_URL}/${subChild.target?.slug}`}
                                 >
                                   {subChild.target?.title || subChild.title}
@@ -135,7 +137,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
                   ) : (
                     <li key={child._key}>
                       <Link
-                        className="transition-colors hover:text-accent"
+                        className={`transition-colors hover:text-accent ${pathname === `${process.env.BASE_URL}/${child.target?.slug}` ? "text-accent" : ""} `}
                         href={`${process.env.BASE_URL}/${child.target?.slug}`}
                       >
                         {child.target?.title || child.title}
@@ -149,7 +151,7 @@ const NavigationItem = React.memo(({ navItem }: NavigationItemProps) => {
         </>
       ) : (
         <Link
-          className="grid grid-cols-[auto_auto] items-center gap-2 transition-colors hover:text-accent  "
+          className={`grid grid-cols-[auto_auto] items-center gap-2 transition-colors hover:text-accent ${pathname === `${process.env.BASE_URL}/${navItem.target?.slug}` ? "text-accent" : ""} `}
           href={`${process.env.BASE_URL}/${navItem.target?.slug}`}
         >
           <div

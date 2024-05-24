@@ -1,4 +1,4 @@
-import { SingleLineItem } from "@/app/interfaces";
+import { SharedLoginItem } from "@/app/interfaces";
 import React from "react";
 
 import {
@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/table";
 
 interface Props {
-  data: SingleLineItem[];
+  data: SharedLoginItem[];
 }
 
-export default function SingleLineList({ data }: Props) {
+export default function SharedLogins({ data }: Props) {
   return (
     <Table>
       <TableHeader className="">

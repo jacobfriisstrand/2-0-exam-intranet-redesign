@@ -27,7 +27,6 @@ export default async function NavigationList() {
       {navigationData?.map((navItem: NavItem) => (
         <NavigationItem key={navItem._key} navItem={navItem} />
       ))}
-      <Link href="/protected/componentspage">Components Page</Link>
     </ul>
   );
 }

@@ -7,7 +7,7 @@
     @apply bg-black font-body text-base text-white transition-opacity duration-300;
   }
   *:focus-visible {
-    @apply outline-double outline-offset-2 outline-white;
+    @apply ring;
   }
   main {
     @apply mx-5 lg:pl-[var(--desktopSidebarWidth)];

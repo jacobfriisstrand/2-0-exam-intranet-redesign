@@ -30,7 +30,7 @@ export default async function UserInfoBar() {
   };
 
   return (
-    <div className="grid w-full grid-cols-[repeat(2,auto)] grid-rows-[repeat(3,auto)] items-center gap-3 lg:fixed lg:top-0 lg:z-navigation lg:ml-[calc(var(--desktopSidebarWidth)-1.5rem)] lg:flex lg:w-[calc(100vw-var(--desktopSidebarWidth))] lg:border-b-base  lg:border-b-darkGray lg:bg-black lg:p-5">
+    <div className="flex place-items-center justify-between lg:fixed lg:top-0 lg:z-navigation lg:ml-[calc(var(--desktopSidebarWidth)-1.5rem)] lg:flex lg:w-[calc(100vw-var(--desktopSidebarWidth))] lg:flex-row lg:border-b-base  lg:border-b-darkGray lg:bg-black lg:p-5">
       <div className="col-start-1 lg:row-start-1 lg:mr-auto">
         <p className="text-white">{profile?.full_name}</p>
         <p className="text-lightGray">{profile?.current_position}</p>
@@ -41,16 +41,6 @@ export default async function UserInfoBar() {
           Logout
         </Button>
       </form>
-
-      <div className="col-span-2 row-start-3 lg:col-span-1 lg:row-start-1">
-        <Input
-          type="search"
-          name="search"
-          className="h-fit w-full lg:w-fit"
-          icon={<MdSearch className="text-accent" />}
-          placeholder="Search..."
-        />
-      </div>
     </div>
   );
 }

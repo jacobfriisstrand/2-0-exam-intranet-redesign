@@ -14,7 +14,7 @@
   }
 
   p {
-    @apply max-w-prose;
+    @apply max-w-prose text-balance;
   }
 
   h1,

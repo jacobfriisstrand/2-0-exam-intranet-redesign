@@ -1,9 +1,7 @@
 import { getNavigation } from "@/sanity/sanity-utils";
 import NavigationItem from "./NavigationItem";
-import Link from "next/link";
 import React from "react";
 
-// Interface for NavigationItem props
 interface NavItem {
   _key: string;
   title: string;

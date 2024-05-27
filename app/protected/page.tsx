@@ -43,7 +43,6 @@ export default async function ProtectedPage() {
   const absence = absenceData["employee_absence"] as Absence[];
 
   const currentDate = new Date();
-  console.log("current date", currentDate);
   const currentWeek = getWeek(currentDate);
 
   return (
@@ -56,7 +55,7 @@ export default async function ProtectedPage() {
       </section>
       <Section>
         <SectionHeading icon={MdNewspaper} title="News" />
-        <div className=" scrollbar-hide flex flex-grow snap-x gap-4 overflow-y-scroll">
+        <div className=" scrollbar-hide flex flex-grow snap-x gap-4 overflow-y-scroll p-2">
           <ArticleCard
             baseSlug="news-and-insights"
             tableName="news"

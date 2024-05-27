@@ -8,12 +8,11 @@ type PageProps = {
     slug: string;
     articleSlug: string;
     tableName: string;
+    pageTitle: string;
   };
 };
 
 export default async function Page({ params }: PageProps) {
-  console.log(params);
-
   const supabase = createClient();
 
   const { data: article, error } = await supabase
@@ -40,6 +39,7 @@ export default async function Page({ params }: PageProps) {
             src={avatarData.publicUrl}
             alt="Avatar"
             fill
+            priority
             sizes="(max-width: 768px) 100%, (max-width: 1200px) 50%, 33%"
             className="aspect-square rounded-full object-cover"
           />

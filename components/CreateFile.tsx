@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { createClient } from "@/utils/supabase/client"; // Import the client-side Supabase client
+import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 
 interface CreateFileProps {

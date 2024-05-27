@@ -19,7 +19,7 @@ function CanteenMenuCard({
 
   return (
     <li
-      className={`${menuItem.day === currentWeekday ? "border-accent" : "border-darkGray"} min-w-[80%] flex-1 snap-start rounded-base border-base bg-black p-5 lg:min-w-[60%] xl:min-w-[inherit]`}
+      className={`${menuItem.day === currentWeekday ? "border-accent" : "border-darkGray"} min-w-[90%] flex-1 snap-start rounded-base border-base bg-black p-5 lg:min-w-[30%] xl:min-w-[inherit]`}
     >
       <article className="flex h-full  flex-col gap-4">
         <p className="font-heading text-step1">{menuItem.day}</p>
@@ -57,8 +57,6 @@ export default async function CanteenMenu({
     .single();
 
   const menuData = await getCanteenMenu(data?.studio_location);
-
-  console.log(menuData);
 
   return (
     <ol className="scrollbar-hide flex snap-both gap-5 overflow-y-scroll">

@@ -1,4 +1,3 @@
-// Import necessary modules and types
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -48,11 +47,11 @@ export default async function SignIn({
       "current_position",
       "studio_location",
       "avatar_url",
-    ]; // Add other required fields as needed
+    ];
     const missingFields = requiredFields.filter((field) => !profile[field]);
 
     if (missingFields.length > 0) {
-      // Set the cookie with the email address
+      // Sets the cookie with the email address
       cookies().set("user_email", email, { path: "/", httpOnly: true });
       return redirect("/complete-profile");
     }

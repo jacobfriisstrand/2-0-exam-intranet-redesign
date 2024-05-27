@@ -6,7 +6,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MdArrowForward, MdCottage, MdEditSquare } from "react-icons/md";
+import { MdArrowForward, MdCottage } from "react-icons/md";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -22,14 +22,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "./ui/textarea";
-import { MdEdit } from "react-icons/md";
-import { createClient } from "@/utils/supabase/client"; // Import the client-side Supabase client
+import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 import { DatePicker } from "./ui/datepicker";
 import { formatISO } from "date-fns";
 
-// Define the schema for the form validation
 const FormSchema = z.object({
   reason: z.string().min(1, {
     message: "Reason is required.",
@@ -53,7 +50,7 @@ export default function CreateAbsence({
   tableName,
   variant,
 }: CreateAbsenceProps) {
-  const supabase = createClient(); // Initialize the client-side Supabase client
+  const supabase = createClient();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -102,7 +99,6 @@ export default function CreateAbsence({
         ),
       );
 
-      // Insert the new Absence into the specified table
       const { error } = await supabase.from(tableName).insert({
         reason,
         start_date: startDateUTC,

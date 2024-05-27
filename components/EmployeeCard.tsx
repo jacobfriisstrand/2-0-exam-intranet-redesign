@@ -8,7 +8,7 @@ type Props = {
 
 const EmployeeCard: React.FC<Props> = ({ data }) => {
   return (
-    <div className="grid gap-10 lg:grid-cols-2 xxl:grid-cols-3">
+    <div className="grid gap-10 md:grid-cols-2 xxl:grid-cols-3">
       {data.map((employee, index) => (
         <article
           className="grid gap-5 text-balance lg:grid-cols-2"
@@ -20,7 +20,7 @@ const EmployeeCard: React.FC<Props> = ({ data }) => {
                 style={{ objectFit: "cover" }}
                 src={employee.avatar_url}
                 alt={employee.full_name}
-                {...(index < 3 ? { priority: true } : {})}
+                {...(index < 6 ? { priority: true } : {})}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 fill
               />

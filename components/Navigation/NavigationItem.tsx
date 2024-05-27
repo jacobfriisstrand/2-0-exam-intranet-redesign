@@ -8,7 +8,6 @@ import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
 
-// Interface for NavigationItem props
 interface NavItem {
   _key: string;
   title: string;

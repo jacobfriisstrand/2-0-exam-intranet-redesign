@@ -35,6 +35,7 @@ type PageProps = {
   };
 };
 
+// Mapping to determine which component to render based on the slug of the page
 const componentMapping: { [key: string]: React.FC<any> } = {
   employees: EmployeeCard,
   "news-and-insights": ArticleCard,
@@ -55,7 +56,6 @@ const componentMapping: { [key: string]: React.FC<any> } = {
   development: ArticleCard,
   strategy: ArticleCard,
   "employee-absence": EmployeeAbsence,
-  // add other mappings
 };
 
 // Mapping to determine whether to render CreateArticle or CreateFile
@@ -87,8 +87,6 @@ const creationComponentMapping: {
   strategy: "CreateArticle",
   "employee-absence": "CreateAbsence",
   "discounts-and-offers": "CreateDiscount",
-
-  // add other mappings
 };
 
 const articleListStyling =
@@ -112,8 +110,8 @@ const slugToClassNameMapping: { [key: string]: string } = {
 export default async function Page({ params }: PageProps) {
   const slug = params.slug;
   const page: Page = await getPage(slug);
-
   let data: TableData;
+
   try {
     data = await fetchTableData(slug);
   } catch (error) {
@@ -128,6 +126,7 @@ export default async function Page({ params }: PageProps) {
               <Image
                 src={page.image}
                 fill
+                priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 alt={page.title}
                 className="object-contain"
@@ -149,7 +148,7 @@ export default async function Page({ params }: PageProps) {
       </div>
       <div className="mt-10">
         {Object.keys(data).map((tableName) => {
-          if (tableName === "bucketName") return null; // Skip bucketName key
+          if (tableName === "bucketName") return null;
           const DynamicComponent = componentMapping[slug];
           const CreationComponent = creationComponentMapping[slug];
 

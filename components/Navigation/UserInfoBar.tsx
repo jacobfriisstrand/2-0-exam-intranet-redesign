@@ -4,15 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MdSearch } from "react-icons/md";
 
-export default async function SearchBar() {
+export default async function UserInfoBar() {
   const supabase = createClient();
 
-  // Get the authenticated user
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Fetch the user profile from the profiles table using the foreign key
   const { data: profile, error } = await supabase
     .from("profiles")
     .select("studio_location, full_name, current_position")
@@ -21,7 +19,6 @@ export default async function SearchBar() {
 
   if (error) {
     console.error("Error fetching profile:", error);
-    // Handle the error appropriately, e.g., set default values or display an error message
   }
 
   const signOut = async () => {

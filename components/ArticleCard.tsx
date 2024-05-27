@@ -27,7 +27,9 @@ async function ArticleCard({ data, baseSlug, tableName, className }: Props) {
         <Link
           key={article.id}
           className={cn("group", className)}
-          href={`${process.env.BASE_URL}/${baseSlug}/${tableName}/${article.slug}`}
+          href={{
+            pathname: `${process.env.BASE_URL}/${baseSlug}/${tableName}/${article.slug}`,
+          }}
         >
           <article className="flex h-full flex-col gap-4 rounded-base border-base border-darkGray bg-black p-5 drop-shadow-base transition-all group-hover:scale-[0.99] group-hover:border-accent motion-reduce:transition-none">
             <h2 className="line-clamp-2 font-heading text-step1">
@@ -40,6 +42,7 @@ async function ArticleCard({ data, baseSlug, tableName, className }: Props) {
                     src={article.author_id?.avatar_url}
                     alt={article.author_id?.full_name}
                     fill
+                    priority
                     sizes="(max-width: 768px) 100%, (max-width: 1200px) 50%, 33%"
                     className="aspect-square rounded-full object-cover"
                   />

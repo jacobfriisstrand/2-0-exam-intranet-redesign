@@ -2,7 +2,7 @@ import AKQALogo from "@/components/Logo/AKQALogo";
 import AnchorLogo from "@/components/Logo/AnchorLogo";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import CompleteProfileForm from "./CompleteProfileForm"; // Import the client component
+import CompleteProfileForm from "./CompleteProfileForm";
 import { cookies } from "next/headers";
 
 export default function CompleteProfile({

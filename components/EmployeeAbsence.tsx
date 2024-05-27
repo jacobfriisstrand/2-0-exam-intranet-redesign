@@ -15,7 +15,7 @@ type Props = {
 export default function EmployeeAbsence({ data }: Props) {
   return (
     <Table>
-      <TableHeader className="">
+      <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
           <TableHead>Start date</TableHead>

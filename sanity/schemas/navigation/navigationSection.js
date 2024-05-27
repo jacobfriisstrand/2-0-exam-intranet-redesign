@@ -1,4 +1,3 @@
-// navigationSection.js
 export default {
   name: "navigation.section",
   type: "object",
@@ -9,7 +8,6 @@ export default {
       name: "target",
       title: "Target page",
       to: [{ type: "page" }],
-      // _weak: true // enable if you don't want reference integrity checks
     },
     {
       type: "string",

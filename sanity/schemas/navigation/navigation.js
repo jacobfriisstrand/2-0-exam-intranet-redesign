@@ -1,4 +1,3 @@
-// navigation.js
 export default {
   name: "navigation",
   type: "document",

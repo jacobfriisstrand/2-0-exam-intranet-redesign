@@ -23,12 +23,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
-import { createClient } from "@/utils/supabase/client"; // Import the client-side Supabase client
+import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 import { formatISO } from "date-fns";
 import { DatePicker } from "./ui/datepicker";
 
-// Define the schema for the form validation
 const FormSchema = z.object({
   company: z.string().min(1, {
     message: "Company is required.",
@@ -50,7 +49,7 @@ interface CreateDiscountProps {
 }
 
 export default function CreateDiscount({ tableName }: CreateDiscountProps) {
-  const supabase = createClient(); // Initialize the client-side Supabase client
+  const supabase = createClient();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -91,7 +90,6 @@ export default function CreateDiscount({ tableName }: CreateDiscountProps) {
         ),
       );
 
-      // Insert the new Discount into the specified table
       const { error } = await supabase.from(tableName).insert({
         company,
         discount_code,
@@ -102,7 +100,6 @@ export default function CreateDiscount({ tableName }: CreateDiscountProps) {
 
       if (error) {
         console.error("Error creating Discount:", error.message);
-        // Handle specific errors
         let errorMessage = "An error occurred while creating the Discount";
         if (error.message.includes("duplicate key value")) {
           errorMessage = "The title must be unique";

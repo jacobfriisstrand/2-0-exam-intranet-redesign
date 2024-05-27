@@ -1,6 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   Form,
@@ -62,7 +62,7 @@ export default function CompleteProfileForm({
   message?: string;
   email: string;
 }) {
-  const form = useForm<ProfileFormValues>({
+  const form: UseFormReturn<ProfileFormValues> = useForm<ProfileFormValues>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
       full_name: "",

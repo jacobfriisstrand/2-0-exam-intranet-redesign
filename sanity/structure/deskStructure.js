@@ -6,10 +6,7 @@ export const deskStructure = (S, context) =>
         .title("Settings")
         .child(
           S.list()
-            // Sets a title for our new list
             .title("Settings Documents")
-            // Add items to the array
-            // Each will pull one of our new singletons
             .items([
               S.listItem()
                 .title("Site Settings")
@@ -27,7 +24,6 @@ export const deskStructure = (S, context) =>
                 ),
             ]),
         ),
-      // We also need to remove the new singletons from the main list
       ...S.documentTypeListItems().filter(
         (listItem) =>
           !["siteSettings", "navigation", "canteenMenuSchema"].includes(

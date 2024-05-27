@@ -6,7 +6,6 @@ import AKQALogo from "@/components/Logo/AKQALogo";
 import AnchorLogo from "../Logo/AnchorLogo";
 import Copyright from "@/components/Copyright";
 import { usePathname } from "next/navigation";
-import NavigationList from "./NavigationList";
 import Hamburger from "./Hamburger";
 
 interface PrimaryNavigationProps {
@@ -113,7 +112,7 @@ export default function PrimaryNavigation({
               : "overflow-hidden"
           }`}
         >
-          {/* because SearchBar and NavigationList are server components, they need to be passed as children via the protected/layout.tsx to the PrimaryNavigation which is a client component */}
+          {/* because UserInfoBar and NavigationList are server components and need async/await functionality, they need to be passed as children via the protected/layout.tsx to the PrimaryNavigation which is a client component */}
           {children}
           <Copyright />
         </div>

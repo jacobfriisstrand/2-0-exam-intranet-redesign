@@ -24,16 +24,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 import { MdEdit } from "react-icons/md";
-import { createClient } from "@/utils/supabase/client"; // Import the client-side Supabase client
+import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 
-// Define the schema for the form validation
 const FormSchema = z.object({
   content: z.string().min(10, {
     message: "The text must be at least 10 characters long",
   }),
   title: z.string().min(1, { message: "Title is required" }),
-  generalError: z.string().optional(), // Add a custom field for general errors
+  generalError: z.string().optional(),
 });
 
 interface CreateArticleProps {
@@ -41,7 +40,7 @@ interface CreateArticleProps {
 }
 
 export default function CreateArticle({ tableName }: CreateArticleProps) {
-  const supabase = createClient(); // Initialize the client-side Supabase client
+  const supabase = createClient();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -70,7 +69,6 @@ export default function CreateArticle({ tableName }: CreateArticleProps) {
       const userId = user.id;
       const { title, content } = data;
 
-      // Insert the new article into the specified table
       const { error } = await supabase.from(tableName).insert({
         title,
         content,
@@ -83,7 +81,6 @@ export default function CreateArticle({ tableName }: CreateArticleProps) {
 
       if (error) {
         console.error("Error creating article:", error.message);
-        // Handle specific errors
         let errorMessage = "An error occurred while creating the article";
         if (error.message.includes("duplicate key value")) {
           errorMessage = "The title must be unique";

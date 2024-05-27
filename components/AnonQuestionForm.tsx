@@ -86,10 +86,10 @@ export function AnonQuestionForm() {
             </FormItem>
           )}
         />
-        <div className="flex flex-col place-items-center gap-4">
+        <div className="flex flex-col gap-4">
           <Button
             type="submit"
-            className="w-full"
+            className="min-w-[2rem]"
             variant={"filled"}
             isLoading={isLoading}
             disabled={isLoading}

@@ -53,6 +53,17 @@ const ProfileSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof ProfileSchema>;
 
+const isFieldOptional = (field: keyof ProfileFormValues) => {
+  return ProfileSchema.shape[field]._def.typeName !== "ZodOptional" ? (
+    <span className="text-danger">*</span>
+  ) : (
+    ""
+  );
+};
+
+console.log(ProfileSchema.shape);
+console.log(ProfileSchema.shape.skills._def.typeName);
+
 export default function CompleteProfileForm({
   completeUserProfile,
   message,
@@ -111,7 +122,9 @@ export default function CompleteProfileForm({
             name="avatar_url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="avatar_url">Upload avatar</FormLabel>
+                <FormLabel htmlFor="avatar_url">
+                  Upload avatar {isFieldOptional("avatar_url")}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="file"
@@ -130,7 +143,9 @@ export default function CompleteProfileForm({
             name="full_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="full_name">Full name</FormLabel>
+                <FormLabel htmlFor="full_name">
+                  Full name {isFieldOptional("full_name")}
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Enter your full name" {...field} />
                 </FormControl>
@@ -143,7 +158,9 @@ export default function CompleteProfileForm({
             name="current_position"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="current_position">Position</FormLabel>
+                <FormLabel htmlFor="current_position">
+                  Position {isFieldOptional("current_position")}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="text"
@@ -160,7 +177,9 @@ export default function CompleteProfileForm({
             name="studio_location"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="studio_location">Studio location</FormLabel>
+                <FormLabel htmlFor="studio_location">
+                  Studio location {isFieldOptional("studio_location")}
+                </FormLabel>
                 <FormControl>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger>
@@ -203,7 +222,9 @@ export default function CompleteProfileForm({
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="phone">Phone</FormLabel>
+                <FormLabel htmlFor="phone">
+                  Phone {isFieldOptional("phone")}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="tel"
@@ -220,7 +241,9 @@ export default function CompleteProfileForm({
             name="birthday"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="birthday">Birthday</FormLabel>
+                <FormLabel htmlFor="birthday">
+                  Birthday {isFieldOptional("birthday")}
+                </FormLabel>
                 <FormControl>
                   <DatePicker
                     value={field.value || new Date()}

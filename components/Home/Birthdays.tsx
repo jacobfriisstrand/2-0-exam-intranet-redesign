@@ -13,9 +13,12 @@ export default async function Birthdays() {
     .select("full_name, id, birthday");
 
   const filteredData = data?.filter((profile) => {
-    const birthdayDate = parseISO(profile.birthday);
-    const birthdayWeek = getWeek(birthdayDate);
-    return birthdayWeek === currentWeek;
+    if (profile.birthday) {
+      const birthdayDate = parseISO(profile.birthday);
+      const birthdayWeek = getWeek(birthdayDate);
+      return birthdayWeek === currentWeek;
+    }
+    return false;
   });
 
   return (

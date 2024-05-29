@@ -7,9 +7,11 @@ type Props = {
 };
 
 const EmployeeCard: React.FC<Props> = ({ data }) => {
+  const filteredData = data.filter((employee) => employee.full_name);
+
   return (
     <div className="grid gap-10 md:grid-cols-2 xxl:grid-cols-3">
-      {data.map((employee, index) => (
+      {filteredData.map((employee, index) => (
         <article
           className="grid gap-5 text-balance lg:grid-cols-2"
           key={employee.id}
@@ -53,7 +55,7 @@ const EmployeeCard: React.FC<Props> = ({ data }) => {
             </div>
             <div>
               <p className="text-lightGray">Birthday</p>
-              <p>{employee.birthday.toString()}</p>
+              <p>{employee.birthday ? employee.birthday.toString() : ""}</p>
             </div>
             <div className="col-span-2 lg:col-span-1">
               <p className="text-lightGray">Skills</p>

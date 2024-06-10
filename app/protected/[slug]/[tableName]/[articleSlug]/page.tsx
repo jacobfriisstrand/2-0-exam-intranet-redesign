@@ -2,6 +2,8 @@ import { createClient } from "@/utils/supabase/client";
 import React from "react";
 import Image from "next/image";
 import { format } from "date-fns";
+import Link from "next/link";
+import { MdArrowBackIos } from "react-icons/md";
 
 type PageProps = {
   params: {
@@ -30,6 +32,13 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <article className="mx-auto max-w-prose space-y-7">
+      <Link
+        className="group flex w-fit place-items-center transition-colors hover:text-accent"
+        href={`/protected/${params.slug}`}
+      >
+        <MdArrowBackIos className="transition-transform group-hover:-translate-x-1" />
+        Back
+      </Link>
       <h1 className="font-heading text-step3 lg:text-step6">
         {article?.title}
       </h1>

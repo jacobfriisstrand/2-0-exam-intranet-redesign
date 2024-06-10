@@ -89,8 +89,7 @@ const creationComponentMapping: {
   "discounts-and-offers": "CreateDiscount",
 };
 
-const articleListStyling =
-  "grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] gap-5";
+const articleListStyling = "flex flex-col gap-4";
 
 const slugToClassNameMapping: { [key: string]: string } = {
   "news-and-insights": articleListStyling,
